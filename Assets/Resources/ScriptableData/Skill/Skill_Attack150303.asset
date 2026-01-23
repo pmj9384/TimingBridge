@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30c4ea8d10941b4e878b6c452bc32fa, type: 3}
+  m_Name: Skill_Attack150303
+  m_EditorClassIdentifier: 
+  skillID: 150303
+  skillType: 0
+  level: 3
+  nameID: INGAME_SKILL_NAME_LIGHTNINGSHOCK
+  descriptionID: INGAME_SKILL_DESCRIPTION_LIGHTNINGSHOCK_II
+  skillGroup: Shock
+  iconImage: {fileID: 21300000, guid: 2a864c7c023d249efb75c69a789665d3, type: 3}
+  selectPossible: 1
+  skillElemental: 3
+  damageRate: 0.5
+  projectileCount: 6
+  attackCount: 1
+  coolDownTime: 7
+  speed: 4
+  interval: 0.3
+  effectID: 1603
+  projectileType: 0
+  elementalEffectAttackIndex: 0
+  projectileBehaviourPrefab: {fileID: 6439493272456486388, guid: 5d4e1570d41e88b44bae661126569479, type: 3}

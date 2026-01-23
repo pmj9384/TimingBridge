@@ -1,0 +1,130 @@
+{
+  "$type": "SaveDataV1, Assembly-CSharp",
+  "playerAccountDataSave": {
+    "$type": "PlayerAccountDataSave, Assembly-CSharp",
+    "tutorialCompleted": false,
+    "gachaSingleAdsRemainCount": 1,
+    "gachaLastUpdate": "2025-05-01T16:12:52.261797+09:00",
+    "bgmVolume": 0.5,
+    "sfxVolume": 0.5,
+    "frameRateIndex": 1,
+    "LanguageSettingType": 0
+  },
+  "goldAnimalTokenKeySystemSave": {
+    "$type": "GoldAnimalTokenKeySystemSave, Assembly-CSharp",
+    "currentGold": 1000,
+    "currentBronzeToken": 0,
+    "currentSilverToken": 0,
+    "currentGoldToken": 0,
+    "currentKey": 0
+  },
+  "playerLevelSystemSave": {
+    "$type": "PlayerLevelSystemSave, Assembly-CSharp",
+    "currentLevel": 1,
+    "experienceValue": 0
+  },
+  "staminaSystemSave": {
+    "$type": "StaminaSystemSave, Assembly-CSharp",
+    "lastStaminaAddTime": "2025-05-01T06:40:58.7038526Z",
+    "currentStamina": 5
+  },
+  "animalUserDataTableSave": {
+    "$type": "AnimalUserDataListSave, Assembly-CSharp",
+    "animalUserDataTable": {
+      "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AnimalUserDataSave, Assembly-CSharp]], mscorlib",
+      "100101": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100101,
+        "level": 1,
+        "isUnlock": true
+      },
+      "100102": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100102,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100103": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100103,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100104": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100104,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100105": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100105,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100106": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100106,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100107": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100107,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100108": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100108,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100109": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100109,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100110": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100110,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100111": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100111,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100112": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100112,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100113": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100113,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100114": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100114,
+        "level": 1,
+        "isUnlock": false
+      },
+      "100115": {
+        "$type": "AnimalUserDataSave, Assembly-CSharp",
+        "animalID": 100115,
+        "level": 1,
+        "isUnlock": false
+      }
+    },
+    "currentAnimalID": 100101
+  },
+  "saveTime": "2025-05-08T01:02:49.7538316+09:00",
+  "Version": 1
+}

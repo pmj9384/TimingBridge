@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30c4ea8d10941b4e878b6c452bc32fa, type: 3}
+  m_Name: Skill_Attack150306
+  m_EditorClassIdentifier: 
+  skillID: 150306
+  skillType: 0
+  level: 1
+  nameID: INGAME_SKILL_NAME_LIGHTNINGORB
+  descriptionID: INGAME_SKILL_DESCRIPTION_LIGHTNINGORB_I
+  skillGroup: Orb
+  iconImage: {fileID: 21300000, guid: 408f844d73cc94d499d7eebb9502806b, type: 3}
+  selectPossible: 1
+  skillElemental: 3
+  damageRate: 1
+  projectileCount: 1
+  attackCount: 3
+  coolDownTime: 10
+  speed: 3
+  interval: 0
+  effectID: 1603
+  projectileType: 0
+  elementalEffectAttackIndex: 0
+  projectileBehaviourPrefab: {fileID: 6439493272456486388, guid: ccf901b505efcac43869e237b770a400, type: 3}

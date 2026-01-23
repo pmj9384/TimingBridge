@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dd6426710a443b4ae5fad74d87c689, type: 3}
+  m_Name: Animal_100110
+  m_EditorClassIdentifier: 
+  AnimalID: 100110
+  StringID: ANIMAL_NAME_DEER
+  Grade: 2
+  AttackPower: 4000
+  StartSpeed: 5
+  MaxSpeed: 12
+  Jump: 0.8
+  Prefab: Deer
+  passive: 5
+  SkillData: {fileID: 11400000, guid: 49bda90803f7d8b44b62d5405a0f678f, type: 2}
+  iconImage: {fileID: 21300000, guid: fea52efbe207ad2499174342aed627b8, type: 3}
+  tokenIconImage: {fileID: 21300000, guid: 0163ae72e6654bd47b28c9f256cefbb3, type: 3}
+  starIconImage: {fileID: 21300000, guid: 9027310e5f204e54a8bfdfdcecfd4e18, type: 3}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dd6426710a443b4ae5fad74d87c689, type: 3}
+  m_Name: Animal_100103
+  m_EditorClassIdentifier: 
+  AnimalID: 100103
+  StringID: ANIMAL_NAME_RACCOON
+  Grade: 1
+  AttackPower: 1000
+  StartSpeed: 5
+  MaxSpeed: 12
+  Jump: 0.8
+  Prefab: Raccoon
+  passive: 3
+  SkillData: {fileID: 11400000, guid: 4db91d3abe2d1fa46813508ba3d15443, type: 2}
+  iconImage: {fileID: 21300000, guid: ac1d4071759aec440afd1bd3d8a42449, type: 3}
+  tokenIconImage: {fileID: 21300000, guid: ad0196d50a417ed42915cb4ab16d538b, type: 3}
+  starIconImage: {fileID: 21300000, guid: b11f941643298d84e8e774ad22fec0bd, type: 3}

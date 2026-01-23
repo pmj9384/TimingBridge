@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30c4ea8d10941b4e878b6c452bc32fa, type: 3}
+  m_Name: Skill_Attack150109
+  m_EditorClassIdentifier: 
+  skillID: 150109
+  skillType: 0
+  level: 4
+  nameID: INGAME_SKILL_NAME_METEOR
+  descriptionID: INGAME_SKILL_DESCRIPTION_METEOR_II
+  skillGroup: Meteor
+  iconImage: {fileID: 21300000, guid: 355aa2c5905c74eddb4f2e4cd615a8d9, type: 3}
+  selectPossible: 1
+  skillElemental: 1
+  damageRate: 4.5
+  projectileCount: 1
+  attackCount: 1
+  coolDownTime: 10
+  speed: 3
+  interval: 0
+  effectID: 1601
+  projectileType: 1
+  elementalEffectAttackIndex: 0
+  projectileBehaviourPrefab: {fileID: 4486496287875108827, guid: 99177a1ec1b9e81409b36b136535e593, type: 3}

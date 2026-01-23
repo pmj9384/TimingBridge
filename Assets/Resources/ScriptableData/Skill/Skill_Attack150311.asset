@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30c4ea8d10941b4e878b6c452bc32fa, type: 3}
+  m_Name: Skill_Attack150311
+  m_EditorClassIdentifier: 
+  skillID: 150311
+  skillType: 0
+  level: 1
+  nameID: 0
+  descriptionID: 0
+  skillGroup: 0
+  iconImage: {fileID: 0}
+  selectPossible: 0
+  skillElemental: 3
+  damageRate: 2
+  projectileCount: 1
+  attackCount: 5
+  coolDownTime: 0
+  speed: 4
+  interval: 0
+  effectID: 0
+  projectileType: 1
+  elementalEffectAttackIndex: -1
+  projectileBehaviourPrefab: {fileID: -8573371898992128334, guid: 2fe15d06cfba0ab48b3831e23c9584b1, type: 3}
