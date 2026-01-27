@@ -11,7 +11,7 @@ public class CubeRoad : MonoBehaviour
 
     public void OnNewAction(InputAction.CallbackContext context)
     {
-        // 버튼 시ㄱ
+        // 버튼 누르기 시작
         if (context.started)
         {
             if (_growRoutine != null) StopCoroutine(_growRoutine);
@@ -21,7 +21,7 @@ public class CubeRoad : MonoBehaviour
         else if (context.canceled)
         {
             if (_growRoutine != null) StopCoroutine(_growRoutine);
-            // 여기서 나중에 FallDown() 같은 쓰러지는 함수를 호출
+            StartCoroutine(FallDownRoutine());
         }
     }
 
@@ -34,5 +34,21 @@ public class CubeRoad : MonoBehaviour
             bridgeMesh.localScale = newScale;
             yield return null; // 다음 프레임까지 대기 (Update와 동일한 효과이나 필요할 때만 작동)
         }
+    }
+    private IEnumerator FallDownRoutine()
+    {
+        float targetAngle = 90f;
+        float currentAngle = 0f;
+        float fallSpeed = 250f;
+
+        while (currentAngle < targetAngle)
+        {
+            float step = fallSpeed * Time.deltaTime;
+            currentAngle += step;
+
+            transform.rotation = Quaternion.Euler(currentAngle, 0, 0); //x 축 기준 회전
+            yield return null;
+        }
+        transform.rotation = Quaternion.Euler(targetAngle, 0, 0);
     }
 }
