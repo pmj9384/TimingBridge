@@ -6,9 +6,26 @@ public class CubeRoad : MonoBehaviour
 {
     [SerializeField] private Transform bridgeMesh;
     [SerializeField] private float growSpeed = 5.0f;
-
     private Coroutine _growRoutine;
+    private Transform _checkPoint;
 
+    private void Awake()
+    {
+        InitReferences();
+    }
+    private void InitReferences()
+    {
+        var tip = GetComponentInChildren<BridgeTip>();
+
+        if (tip != null)
+        {
+            _checkPoint = tip.transform;
+        }
+        else
+        {
+            Debug.LogError($"{gameObject.name}: 다리끝에 bridgeTip이 없음");
+        }
+    }
     public void OnNewAction(InputAction.CallbackContext context)
     {
         // 버튼 누르기 시작
@@ -50,5 +67,16 @@ public class CubeRoad : MonoBehaviour
             yield return null;
         }
         transform.rotation = Quaternion.Euler(targetAngle, 0, 0);
+
+        RaycastHit hit;
+        if (Physics.Raycast(_checkPoint.position, Vector3.down, out hit, 2.0f))
+        {
+            Debug.Log("발판 성공!");
+
+        }
+        else
+        {
+            Debug.Log("실패!");
+        }
     }
 }

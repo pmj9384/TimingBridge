@@ -6,7 +6,7 @@
             "id": "b03ee630-a83e-4c71-aab5-570d5408b86c",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "RoadTap",
                     "type": "Button",
                     "id": "5f7b53dc-bc59-49f8-bd0b-7cb3cfecceb5",
                     "expectedControlType": "",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "RoadTap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
