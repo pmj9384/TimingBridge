@@ -9,6 +9,7 @@ public class CubeRoad : MonoBehaviour
     private Coroutine _growRoutine;
     private Transform _checkPoint;
 
+
     private void Awake()
     {
         InitReferences();
@@ -72,7 +73,7 @@ public class CubeRoad : MonoBehaviour
         if (Physics.Raycast(_checkPoint.position, Vector3.down, out hit, 2.0f))
         {
             Debug.Log("발판 성공!");
-
+         //   playerMove.MovePlayer;
         }
         else
         {

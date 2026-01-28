@@ -18,7 +18,7 @@ public class GameUIManager : InGameManager
         base.Initialize();
 
         // [실무 기술] 게임 상태(GameManager)와 UI 연동
-   //     GameManager.AddGameStateStartAction(GameManager.GameState.GameOver, ShowGameOverPanel);
+        //     GameManager.AddGameStateStartAction(GameManager.GameState.GameOver, ShowGameOverPanel);
 
         // UI 요소들에게 매니저 참조 세팅 및 초기화
         foreach (var element in uiElements)
@@ -51,9 +51,9 @@ public class GameUIManager : InGameManager
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    public void Clear()
-    {
-        // 필요한 메모리 정리
-        uiElements.Clear();
-    }
+    // private void  Clear()
+    // {
+    //     // 필요한 메모리 정리
+    //     uiElements.Clear();
+    // }
 }

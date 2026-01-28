@@ -34,7 +34,7 @@ public class GameManager : MonoSingleton<GameManager>
     // 모든 프로젝트에서 공통으로 쓰는 최소 매니저들만 남깁니다.
     public ObjectPoolManager ObjectPool { get; private set; }
     public GameUIManager UIManager { get; private set; }
-    //public PlayerManager PlayerManager { get; private set; }
+    public PlayerManager PlayerManager { get; private set; }
     // public BridgeManager BridgeManager { get; private set; }
     #endregion
 
@@ -86,7 +86,7 @@ public class GameManager : MonoSingleton<GameManager>
         List<GameObject> managerObjects = GameObject.FindGameObjectsWithTag("Manager").ToList();
 
         UIManager = RegisterManager<GameUIManager>(managerObjects);
-        //  PlayerManager = RegisterManager<PlayerManager>(managerObjects);
+        PlayerManager = RegisterManager<PlayerManager>(managerObjects);
 
         // 모든 매니저 공통 초기화
         foreach (var manager in managers)
