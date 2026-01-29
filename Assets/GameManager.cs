@@ -35,7 +35,7 @@ public class GameManager : MonoSingleton<GameManager>
     public ObjectPoolManager ObjectPool { get; private set; }
     public GameUIManager UIManager { get; private set; }
     public PlayerManager PlayerManager { get; private set; }
-    // public BridgeManager BridgeManager { get; private set; }
+    public BridgeManager BridgeManager { get; private set; }
     #endregion
 
     protected override void Awake()
@@ -85,7 +85,7 @@ public class GameManager : MonoSingleton<GameManager>
         // 2. 씬에 존재하는 MonoBehaviour 매니저 자동 등록
         List<GameObject> managerObjects = GameObject.FindGameObjectsWithTag("Manager").ToList();
 
-        UIManager = RegisterManager<GameUIManager>(managerObjects);
+        //    UIManager = RegisterManager<GameUIManager>(managerObjects);
         PlayerManager = RegisterManager<PlayerManager>(managerObjects);
 
         // 모든 매니저 공통 초기화

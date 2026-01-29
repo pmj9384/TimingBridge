@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
 
 public class CubeRoad : MonoBehaviour
 {
@@ -8,11 +9,15 @@ public class CubeRoad : MonoBehaviour
     [SerializeField] private float growSpeed = 5.0f;
     private Coroutine _growRoutine;
     private Transform _checkPoint;
-
+    public Action<bool, Vector3> onBridgeResults;
 
     private void Awake()
     {
         InitReferences();
+
+    }
+    private void Start()
+    {
     }
     private void InitReferences()
     {
@@ -68,16 +73,21 @@ public class CubeRoad : MonoBehaviour
             yield return null;
         }
         transform.rotation = Quaternion.Euler(targetAngle, 0, 0);
-
+        CheckSuccess();
+    }
+    private void CheckSuccess()
+    {
         RaycastHit hit;
+
         if (Physics.Raycast(_checkPoint.position, Vector3.down, out hit, 2.0f))
         {
             Debug.Log("발판 성공!");
-         //   playerMove.MovePlayer;
+            onBridgeResults?.Invoke(true, hit.point);
         }
         else
         {
             Debug.Log("실패!");
+            onBridgeResults?.Invoke(false, Vector3.zero);
         }
     }
 }
