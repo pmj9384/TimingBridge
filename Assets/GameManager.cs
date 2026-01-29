@@ -44,13 +44,13 @@ public class GameManager : MonoSingleton<GameManager>
 
         SetInitialSettings();
         InitializeStateActions();
-
+        InitializeCoreManagers();
         SetGameState(GameState.WaitLoading);
     }
 
     private void Start()
     {
-        InitializeCoreManagers();
+        // InitializeCoreManagers();
     }
 
     private void SetInitialSettings()
@@ -87,7 +87,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         //    UIManager = RegisterManager<GameUIManager>(managerObjects);
         PlayerManager = RegisterManager<PlayerManager>(managerObjects);
-
+        BridgeManager = RegisterManager<BridgeManager>(managerObjects);
         // 모든 매니저 공통 초기화
         foreach (var manager in managers)
         {

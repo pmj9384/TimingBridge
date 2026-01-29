@@ -37,6 +37,7 @@ public class CubeRoad : MonoBehaviour
         // 버튼 누르기 시작
         if (context.started)
         {
+
             if (_growRoutine != null) StopCoroutine(_growRoutine);
             _growRoutine = StartCoroutine(GrowRoutine());
         }

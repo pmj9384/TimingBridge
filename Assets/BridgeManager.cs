@@ -11,25 +11,17 @@ public class BridgeManager : InGameManager
     public override void Initialize()
     {
         base.Initialize();
-        // Debug.Log("브릿지 생성");
-        // if (bridgeSpawner != null) bridgeSpawner.InitializeSpawner();
-        // onBridgeResults = new Action<Vector3>[2];
+        if (bridgeSpawner != null)
+        {
+            bridgeSpawner.InitializeSpawner();
+        }
 
-        // // 2. 결과에 따른 로직 등록 (GameManager의 InitializeStateActions와 같은 방식)
-        // AddResultAction(false, (pos) =>
-        // {
-        //     GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
-        // });
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
+        {
+            bridgeSpawner.SpawnNextBridge(bridgeSpawner.transform.position, true);
+        });
 
-        // AddResultAction(true, (pos) =>
-        // {
-        //     GameManager.Instance.PlayerManager.MovePlayer(pos);
-        // });
-    }
-    private void Awake()
-    {
 
-        if (bridgeSpawner != null) bridgeSpawner.InitializeSpawner();
         onBridgeResults = new Action<Vector3>[2];
 
         // 2. 결과에 따른 로직 등록 (GameManager의 InitializeStateActions와 같은 방식)
@@ -41,9 +33,9 @@ public class BridgeManager : InGameManager
         AddResultAction(true, (pos) =>
         {
             GameManager.Instance.PlayerManager.MovePlayer(pos);
+            bridgeSpawner.SpawnNextBridge(pos);
         });
     }
-
 
 
     public void OnBridgeResult(bool isSuccess, Vector3 targetPos)

@@ -26,6 +26,8 @@ public class PlayerMove : MonoBehaviour
 
         transform.position = finalTarget;
         _isMoving = false;
+
         Debug.Log("플레이어 도착");
+        GameManager.Instance.BridgeManager.Spawner.ReleasePreviousSet();
     }
 }
