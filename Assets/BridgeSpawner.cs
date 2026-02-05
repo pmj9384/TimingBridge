@@ -19,6 +19,7 @@ public class BridgeSpawner : MonoBehaviour
 
     public void InitializeSpawner()
     {
+
         // 1 오브젝트 풀 생성 및 규칙 정의
         bridgePool = GameManager.Instance.ObjectPool.CreateObjectPool(
         bridgePrefab,
@@ -32,14 +33,22 @@ public class BridgeSpawner : MonoBehaviour
         onGet: (obj) => obj.SetActive(true),
         onRelease: (obj) => obj.SetActive(false)
    );
-        // 2. 게임 시작 시 첫 번째 다리 생성 (플레이어 발밑)
-        SpawnNextBridge(transform.position, true);
+        GameObject startPlatform = platformPool.Get();
+        startPlatform.transform.position = Vector3.zero;
+        startPlatform.transform.rotation = Quaternion.identity;
+
+        // 얘를 'current'로 일단 둬서 SpawnNextBridge가 얘를 previous로 밀어냄
+        currentPlatform = startPlatform;
+
+        // 다음 발판  다리 생성]
+        // 여기서 isFirst를 false로 보내야 다음 발판이 생김
+        SpawnNextBridge(startPlatform.transform.position, false);
         Debug.Log("브릿지 생성");
     }
 
     public void SpawnNextBridge(Vector3 currentPlatformPos, bool isFirst = false)
     {
-        // 2. [계보 이동] 지금 쓰고 있던 걸 '이전 것'으로 보관 (이제 새 걸 받을 준비)
+        // 2. 지금 쓰고 있던 걸 '이전 것'으로 보관 (이제 새 걸 받을 준비)
         oldPlatform = previousPlatform;
         previousBridge = currentBridge;
         previousPlatform = currentPlatform;
@@ -55,10 +64,9 @@ public class BridgeSpawner : MonoBehaviour
         {
             GameObject nextPlatform = platformPool.Get();
 
-            // [유니버설 기술] 랜덤 거리를 통해 게임의 난이도를 동적으로 조절
-            float randomDist = Random.Range(4f, 8f);
+            float randomDist = Random.Range(15f, 30f);
 
-            Vector3 nextPos = new Vector3(currentPlatformPos.x, 0f, currentPlatformPos.z + 15f);
+            Vector3 nextPos = new Vector3(currentPlatformPos.x, 0f, currentPlatformPos.z + randomDist);
             nextPlatform.transform.position = nextPos;
             nextPlatform.transform.rotation = Quaternion.identity;
             currentPlatform = nextPlatform;
@@ -74,7 +82,7 @@ public class BridgeSpawner : MonoBehaviour
     }
     public void ReleasePreviousSet()
     {
-        // 1. [정리] 새로운 걸 만들기 전에, 아주 오래된(이전 단계) 다리와 발판은 풀로 반환
+        // 1. 새로운 걸 만들기 전에, 아주 오래된다리와 발판은 풀로 반환
         if (previousBridge != null)
         {
             bridgePool.Release(previousBridge);
