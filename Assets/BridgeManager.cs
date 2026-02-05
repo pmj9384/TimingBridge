@@ -8,6 +8,8 @@ public class BridgeManager : InGameManager
     [SerializeField] private BridgeSpawner bridgeSpawner;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;
+
+    public bool CanBuild { get; private set; } = true;
     public override void Initialize()
     {
         base.Initialize();
@@ -33,13 +35,18 @@ public class BridgeManager : InGameManager
         AddResultAction(true, (pos) =>
         {
             GameManager.Instance.PlayerManager.MovePlayer(pos);
+            GameManager.Instance.PlayerManager.OnPlayerArrived += Spawner.ReleasePreviousSet;
             bridgeSpawner.SpawnNextBridge(pos);
         });
+
+        
     }
 
 
     public void OnBridgeResult(bool isSuccess, Vector3 targetPos)
     {
+        CanBuild = false;
+        
         int index = isSuccess ? 1 : 0;
 
         // 해당되는 액션 실행!

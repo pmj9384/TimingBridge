@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     private bool _isMoving = false;
+    public bool IsMoving => _isMoving;
+    public System.Action OnArrival;
 
     public void MoveToTarget(Vector3 targetPos, float speed)
     {
@@ -29,5 +31,6 @@ public class PlayerMove : MonoBehaviour
 
         Debug.Log("플레이어 도착");
         GameManager.Instance.BridgeManager.Spawner.ReleasePreviousSet();
+        OnArrival?.Invoke();
     }
 }

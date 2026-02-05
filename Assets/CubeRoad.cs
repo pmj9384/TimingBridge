@@ -10,6 +10,7 @@ public class CubeRoad : MonoBehaviour
     private Coroutine _growRoutine;
     private Transform _checkPoint;
     public Action<bool, Vector3> onBridgeResults;
+    private bool _canGrow = true;
 
     private void Awake()
     {
@@ -32,8 +33,15 @@ public class CubeRoad : MonoBehaviour
             Debug.LogError($"{gameObject.name}: 다리끝에 bridgeTip이 없음");
         }
     }
+    private void OnEnable()
+    {
+        _canGrow = true;
+    }
+
     public void OnNewAction(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.PlayerManager.IsMoving) return;
+        if (!_canGrow) return;
         // 버튼 누르기 시작
         if (context.started)
         {
@@ -44,6 +52,7 @@ public class CubeRoad : MonoBehaviour
         // 손땟을때
         else if (context.canceled)
         {
+            _canGrow = false;
             if (_growRoutine != null) StopCoroutine(_growRoutine);
             StartCoroutine(FallDownRoutine());
         }
