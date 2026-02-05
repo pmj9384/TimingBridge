@@ -8,6 +8,7 @@ public class BridgeSpawner : MonoBehaviour
     private ObjectPool<GameObject> bridgePool;
     private ObjectPool<GameObject> platformPool;
 
+    private GameObject oldPlatform;
     private GameObject currentBridge;
     private GameObject previousBridge;
     private GameObject currentPlatform;
@@ -39,6 +40,7 @@ public class BridgeSpawner : MonoBehaviour
     public void SpawnNextBridge(Vector3 currentPlatformPos, bool isFirst = false)
     {
         // 2. [계보 이동] 지금 쓰고 있던 걸 '이전 것'으로 보관 (이제 새 걸 받을 준비)
+        oldPlatform = previousPlatform;
         previousBridge = currentBridge;
         previousPlatform = currentPlatform;
         // 3. 풀에서 다리 꺼내기
@@ -76,11 +78,13 @@ public class BridgeSpawner : MonoBehaviour
         if (previousBridge != null)
         {
             bridgePool.Release(previousBridge);
+            previousBridge = null; // 중복 반환 방지
         }
 
-        if (previousPlatform != null)
+        if (oldPlatform != null)
         {
-            platformPool.Release(previousPlatform);
+            platformPool.Release(oldPlatform);
+            oldPlatform = null;
         }
 
     }
