@@ -1,0 +1,34 @@
+{
+    "name": "CubeTouch",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "467c8a25-2d15-4ef8-9e3a-a57cf33469f8",
+            "actions": [
+                {
+                    "name": "CubeTouch",
+                    "type": "Button",
+                    "id": "3775332a-e81a-466d-bb0a-6d532befd011",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "14b3fcf4-5880-4d04-8689-308661a093f0",
+                    "path": "<Pointer>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CubeTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

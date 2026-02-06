@@ -40,6 +40,7 @@ public class CubeRoad : MonoBehaviour
 
     public void OnNewAction(InputAction.CallbackContext context)
     {
+        Debug.Log($"<color=cyan>입력 들어옴!</color> Phase: {context.phase}");
         if (GameManager.Instance.PlayerManager.IsMoving) return;
         if (!_canGrow) return;
         // 버튼 누르기 시작
