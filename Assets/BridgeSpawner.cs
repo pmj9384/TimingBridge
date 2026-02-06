@@ -64,7 +64,7 @@ public class BridgeSpawner : MonoBehaviour
         {
             GameObject nextPlatform = platformPool.Get();
 
-            float randomDist = Random.Range(15f, 30f);
+            float randomDist = Random.Range(10f, 20f);
 
             Vector3 nextPos = new Vector3(currentPlatformPos.x, 0f, currentPlatformPos.z + randomDist);
             nextPlatform.transform.position = nextPos;
