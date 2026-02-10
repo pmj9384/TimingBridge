@@ -96,4 +96,9 @@ public class BridgeSpawner : MonoBehaviour
         }
 
     }
+    public Vector3 GetCurrentPlatformPos()
+    {
+        // 생성된 플랫폼의 중앙 위치(Pivot)를 반환
+        return currentPlatform.transform.position;
+    }
 }

@@ -22,31 +22,29 @@ public class BridgeManager : InGameManager
         {
             bridgeSpawner.SpawnNextBridge(bridgeSpawner.transform.position, true);
         });
-
-
         onBridgeResults = new Action<Vector3>[2];
 
         // 2. 결과에 따른 로직 등록 (GameManager의 InitializeStateActions와 같은 방식)
         AddResultAction(false, (pos) =>
         {
-            GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
+            GameManager.Instance.PlayerManager.MovePlayer(pos, false);
         });
 
         AddResultAction(true, (pos) =>
         {
-            GameManager.Instance.PlayerManager.MovePlayer(pos);
+            Vector3 realTarget = Spawner.GetCurrentPlatformPos();
+            GameManager.Instance.PlayerManager.MovePlayer(realTarget, true);
             GameManager.Instance.PlayerManager.OnPlayerArrived += Spawner.ReleasePreviousSet;
-            bridgeSpawner.SpawnNextBridge(pos);
+            bridgeSpawner.SpawnNextBridge(realTarget);
         });
 
-        
     }
 
 
     public void OnBridgeResult(bool isSuccess, Vector3 targetPos)
     {
         CanBuild = false;
-        
+
         int index = isSuccess ? 1 : 0;
 
         // 해당되는 액션 실행!
