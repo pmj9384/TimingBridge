@@ -19,8 +19,11 @@ public class PlayerManager : InGameManager
         // 3. 게임오버 시 물리 작동 액션 등록
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
+            playerMove.StopMoving();
             rb.isKinematic = false;
             rb.useGravity = true;
+            rb.velocity = Vector3.zero; // 앞으로 가던 힘 삭제
+            rb.angularVelocity = Vector3.zero;
             Debug.Log("플레이어 추락 시퀀스 시작");
         });
     }

@@ -811,25 +811,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlanePivot
       objectReference: {fileID: 0}
-    - target: {fileID: 3057719402472037995, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6584799789920072573, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
-      propertyPath: m_Size.x
-      value: 13.2350445
-      objectReference: {fileID: 0}
-    - target: {fileID: 6584799789920072573, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
-      propertyPath: m_Size.z
-      value: 5.6927166
-      objectReference: {fileID: 0}
-    - target: {fileID: 6584799789920072573, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
-      propertyPath: m_Center.x
-      value: -1.6699371
-      objectReference: {fileID: 0}
-    - target: {fileID: 6584799789920072573, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
-      propertyPath: m_Center.z
-      value: -0.8615198
+    - target: {fileID: 7468233292807702395, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7608779769901020996, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
       propertyPath: m_LocalPosition.x

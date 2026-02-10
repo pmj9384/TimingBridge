@@ -5,6 +5,7 @@ using System;
 public class BridgeManager : InGameManager
 {
     public Action<Vector3>[] onBridgeResults;
+    
     [SerializeField] private BridgeSpawner bridgeSpawner;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;

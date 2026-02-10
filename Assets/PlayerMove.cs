@@ -46,6 +46,9 @@ public class PlayerMove : MonoBehaviour
             }
             // _isMoving은 FallZone 트리거에서 false로 만들어줌!
         }
-
+    }
+    public void StopMoving()
+    {
+        _isMoving = false; 
     }
 }
