@@ -7,6 +7,9 @@ public class CubeRoad : MonoBehaviour
 {
     [SerializeField] private Transform bridgeMesh;
     [SerializeField] private float growSpeed = 5.0f;
+    private float maxScale = 7.0f;
+    private float minScale = 0.1f;
+    private bool isShrinking = false;
     private Coroutine _growRoutine;
     private Transform _checkPoint;
     public Action<bool, Vector3> onBridgeResults;
@@ -40,7 +43,6 @@ public class CubeRoad : MonoBehaviour
 
     public void OnNewAction(InputAction.CallbackContext context)
     {
-        Debug.Log($"<color=cyan>입력 들어옴!</color> Phase: {context.phase}");
         if (GameManager.Instance.PlayerManager.IsMoving) return;
         if (!_canGrow) return;
         // 버튼 누르기 시작
@@ -64,9 +66,23 @@ public class CubeRoad : MonoBehaviour
         while (true)
         {
             Vector3 newScale = bridgeMesh.localScale;
-            newScale.y += growSpeed * Time.deltaTime;
-            bridgeMesh.localScale = newScale;
             yield return null; // 다음 프레임까지 대기 (Update와 동일한 효과이나 필요할 때만 작동)
+
+            if (!isShrinking)
+            {
+                newScale.y += growSpeed * Time.deltaTime;
+                // 최대치 도달하면 방향 전환
+                if (newScale.y >= maxScale) isShrinking = true;
+            }
+            else
+            {
+                newScale.y -= growSpeed * Time.deltaTime;
+                // 최소치 도달하면 방향 전환
+                if (newScale.y <= minScale) isShrinking = false;
+            }
+
+            bridgeMesh.localScale = newScale;
+            yield return null;
         }
     }
     private IEnumerator FallDownRoutine()
