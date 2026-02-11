@@ -7,9 +7,13 @@ public class fallzone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if (GameManager.Instance.BridgeManager.CanBuild)
+        {
+            return;
+        }
         if (other.CompareTag("Player"))
         {
-        
             Debug.Log("FallZone: 플레이어 낙하 지점 도착! 게임 오버 처리");
             // 3. 게임 오버 상태로 변경
             StartCoroutine(GameOverSequence(other.gameObject));
