@@ -100,13 +100,17 @@ public class CubeRoad : MonoBehaviour
             yield return null;
         }
         transform.rotation = Quaternion.Euler(targetAngle, 0, 0);
+        yield return new WaitForEndOfFrame();
         CheckSuccess();
     }
     private void CheckSuccess()
     {
-        RaycastHit hit;
+        Vector3 rayDirection = Vector3.down * 5.0f;
 
-        if (Physics.Raycast(_checkPoint.position, Vector3.down, out hit, 2.0f))
+        // 씬 창에 빨간 선 그리기
+        Debug.DrawRay(_checkPoint.position, rayDirection, Color.red, 5.0f);
+        RaycastHit hit;
+        if (Physics.Raycast(_checkPoint.position, Vector3.down, out hit, 5.0f))
         {
             Debug.Log("발판 성공!");
             onBridgeResults?.Invoke(true, hit.point);
