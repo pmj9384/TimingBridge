@@ -4,11 +4,14 @@ using UnityEngine;
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
+    private static bool _isQuitting = false;
 
     public static T Instance
     {
         get
         {
+            if (_isQuitting) return null;
+
             if (_instance == null)
             {
                 // 1. 씬에 이미 있는지 확인
@@ -43,6 +46,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_instance == this)
         {
             _instance = null;
+            _isQuitting = true;
         }
     }
 }
