@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro; // 텍스트 매시 프로 사용
 using UnityEngine.UI;
+using System.Collections;
 
 public class InGameUIManager : InGameManager
 {
@@ -28,8 +29,7 @@ public class InGameUIManager : InGameManager
         base.Initialize();
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
-            Debug.Log("!!!!");
-            ShowGameOver();
+            StartCoroutine(ShowGameOverDelayed());
         });
     }
 
@@ -38,6 +38,12 @@ public class InGameUIManager : InGameManager
     {
         currentScore += amount;
         scoreText.text = currentScore.ToString();
+    }
+
+    private IEnumerator ShowGameOverDelayed()
+    {
+        yield return new WaitForSecondsRealtime(1.5f);
+        ShowGameOver();
     }
 
     // 게임 오버 창 띄우기

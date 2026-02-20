@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
     private bool _isMoving = false;
     public bool IsMoving => _isMoving;
     public System.Action OnArrival;
+    public System.Action OnFailureArrival;
 
     public void MoveToTarget(Vector3 targetPos, float speed, bool isSuccess)
     {
@@ -36,15 +37,15 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            // 실패 시 목적지 따위 무시하고 앞으로 계속 직진
-            Debug.Log("실패: 멈추지 않고 직진 시작");
-            while (_isMoving)
+            // 실패 시 다리 끝까지 이동 후 정지
+            while (Vector3.Distance(transform.position, finalTarget) > 0.05f)
             {
-                // finalTarget 방향으로 계속 전진 (멈춤 조건 없음!)
-                transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, finalTarget, speed * Time.deltaTime);
                 yield return null;
             }
-            // _isMoving은 FallZone 트리거에서 false로 만들어줌!
+            transform.position = finalTarget;
+            _isMoving = false;
+            OnFailureArrival?.Invoke();
         }
     }
     public void StopMoving()

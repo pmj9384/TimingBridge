@@ -14,15 +14,43 @@ public class CubeRoad : MonoBehaviour
     private Transform _checkPoint;
     public Action<bool, Vector3> onBridgeResults;
     private bool _canGrow = true;
+    private Rigidbody _rb;
 
     private void Awake()
     {
         InitReferences();
+        _rb = GetComponent<Rigidbody>();
+    }
 
-    }
-    private void Start()
+    private void OnEnable()
     {
+        _canGrow = true;
+        if (GameManager.Instance != null)
+            GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, OnGameOver);
     }
+
+    private void OnDisable()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.RemoveGameStateEnterAction(GameManager.GameState.GameOver, OnGameOver);
+        if (_rb != null)
+        {
+            _rb.isKinematic = true;
+            _rb.useGravity = false;
+        }
+    }
+
+    private void OnGameOver()
+    {
+        if (_rb != null)
+        {
+            foreach (var col in GetComponentsInChildren<Collider>())
+                col.enabled = false;
+            _rb.isKinematic = false;
+            _rb.useGravity = true;
+        }
+    }
+
     private void InitReferences()
     {
         var tip = GetComponentInChildren<BridgeTip>();
@@ -35,10 +63,6 @@ public class CubeRoad : MonoBehaviour
         {
             Debug.LogError($"{gameObject.name}: 다리끝에 bridgeTip이 없음");
         }
-    }
-    private void OnEnable()
-    {
-        _canGrow = true;
     }
 
     public void OnNewAction(InputAction.CallbackContext context)
@@ -118,7 +142,7 @@ public class CubeRoad : MonoBehaviour
         else
         {
             Debug.Log("실패!");
-            onBridgeResults?.Invoke(false, Vector3.zero);
+            onBridgeResults?.Invoke(false, _checkPoint.position);
         }
     }
 }
