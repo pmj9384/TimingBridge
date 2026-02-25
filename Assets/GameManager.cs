@@ -33,10 +33,10 @@ public class GameManager : MonoSingleton<GameManager>
 
     // 모든 프로젝트에서 공통으로 쓰는 최소 매니저들만 남깁니다.
     public ObjectPoolManager ObjectPool { get; private set; }
-    public GameUIManager UIManager { get; private set; }
     public PlayerManager PlayerManager { get; private set; }
     public BridgeManager BridgeManager { get; private set; }
-    public InGameUIManager inGameUIManager { get; private set; }
+    public GameUIManager UIManager { get; private set; }
+
     #endregion
 
     protected override void Awake()
@@ -89,12 +89,13 @@ public class GameManager : MonoSingleton<GameManager>
         //    UIManager = RegisterManager<GameUIManager>(managerObjects);
         PlayerManager = RegisterManager<PlayerManager>(managerObjects);
         BridgeManager = RegisterManager<BridgeManager>(managerObjects);
-        inGameUIManager = RegisterManager<InGameUIManager>(managerObjects);
+        UIManager = RegisterManager<GameUIManager>(managerObjects);
         // 모든 매니저 공통 초기화
         foreach (var manager in managers)
         {
             manager.Initialize();
         }
+        UIManager.InitializedUIElements();
     }
     // [유니버설 기술] 제네릭을 사용하여 어떤 매니저든 안전하게 등록
     private T RegisterManager<T>(List<GameObject> list) where T : InGameManager
