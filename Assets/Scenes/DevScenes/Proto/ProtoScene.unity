@@ -127,11 +127,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3057719402472037995, guid: f5431f9c737664273874a4ce66a26a11, type: 3}
   m_PrefabInstance: {fileID: 2934885921633283022}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &243254604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1760235783779139715, guid: a6b553a1699e84ef1933523c59302bd8, type: 3}
-  m_PrefabInstance: {fileID: 1318505606}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &339861243
 GameObject:
   m_ObjectHideFlags: 3
@@ -462,12 +457,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 813182145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39f590c347e274fc594742dc0cd314fc, type: 3}
+  m_Script: {fileID: 11500000, guid: e1c2523b11b814851b02a048449c64e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverPanel: {fileID: 243254604}
-  scoreText: {fileID: 1916191789}
-  finalScoreText: {fileID: 0}
+  uiElements: []
 --- !u!1 &923225103
 GameObject:
   m_ObjectHideFlags: 0

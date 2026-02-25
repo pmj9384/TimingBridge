@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class UIElement : MonoBehaviour
 {
-    [SerializeField] private UIElementEnums elementType;
-    public UIElementEnums ElementType => elementType;
-
     protected GameUIManager gameUIManager;
     protected GameManager gameManager;
 
