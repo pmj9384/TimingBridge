@@ -8,6 +8,12 @@ public class ScoreText : UIElement
     public override void Initialize()
     {
         gameObject.SetActive(false);
+        BridgeManager.OnScoreChanged += OnScoreChanged;
+    }
+
+    private void OnDestroy()
+    {
+        BridgeManager.OnScoreChanged -= OnScoreChanged;
     }
 
     public override void Show()
@@ -15,7 +21,7 @@ public class ScoreText : UIElement
         gameObject.SetActive(true);
     }
 
-    public void SetScore(int score)
+    private void OnScoreChanged(int score)
     {
         scoreText.text = score.ToString();
     }

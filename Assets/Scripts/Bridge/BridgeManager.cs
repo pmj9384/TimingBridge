@@ -4,9 +4,13 @@ using UnityEngine;
 using System;
 public class BridgeManager : InGameManager
 {
+    public static event Action<int> OnScoreChanged;
+
     public bool IsLastSuccess { get; private set; }
     public Action<Vector3>[] onBridgeResults;
     public Action<bool, Vector3> OnBridgeResultOccurred;
+
+    private int score = 0;
     [SerializeField] private BridgeSpawner bridgeSpawner;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;
@@ -48,6 +52,12 @@ public class BridgeManager : InGameManager
         // [추가] 상태 기록 및 외부 방송
         IsLastSuccess = isSuccess;
         OnBridgeResultOccurred?.Invoke(isSuccess, targetPos);
+        if (isSuccess)
+        {
+            score++;
+            OnScoreChanged?.Invoke(score);
+        }
+
         int index = isSuccess ? 1 : 0;
 
         // 해당되는 액션 실행!

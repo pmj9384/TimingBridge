@@ -12,6 +12,11 @@ public class GameUIManager : InGameManager
         {
             element.SetUIManager(GameManager, this);
         }
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
+        {
+            ShowUIElement(UIElementEnums.ScoreText);
+        });
     }
 
     public void InitializedUIElements()
