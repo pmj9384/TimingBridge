@@ -51,7 +51,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
-        // InitializeCoreManagers();
+        SetGameState(GameState.GameReady);
     }
 
     private void SetInitialSettings()

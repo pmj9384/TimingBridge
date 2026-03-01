@@ -25,7 +25,7 @@ public class BridgeManager : InGameManager
 
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
         {
-            bridgeSpawner.SpawnNextBridge(bridgeSpawner.transform.position, true);
+            bridgeSpawner.SpawnNextBridge(bridgeSpawner.GetCurrentPlatformPos());
         });
         onBridgeResults = new Action<Vector3>[2];
 

@@ -39,11 +39,6 @@ public class BridgeSpawner : MonoBehaviour
 
         // 얘를 'current'로 일단 둬서 SpawnNextBridge가 얘를 previous로 밀어냄
         currentPlatform = startPlatform;
-
-        // 다음 발판  다리 생성]
-        // 여기서 isFirst를 false로 보내야 다음 발판이 생김
-        SpawnNextBridge(startPlatform.transform.position, false);
-        Debug.Log("브릿지 생성");
     }
 
     public void SpawnNextBridge(Vector3 currentPlatformPos, bool isFirst = false)
