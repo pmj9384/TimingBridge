@@ -1,6 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class GameUIManager : InGameManager
 {
     public List<UIElement> uiElements;
@@ -17,6 +17,21 @@ public class GameUIManager : InGameManager
         {
             ShowUIElement(UIElementEnums.ScoreText);
         });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameStop, () =>
+        {
+            HideUIElement(UIElementEnums.ScoreText);
+        });
+
+        GameManager.AddGameStateExitAction(GameManager.GameState.GameStop, () =>
+        {
+            ShowUIElement(UIElementEnums.ScoreText);
+        });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
+        {
+            StartCoroutine(ShowDelayed(UIElementEnums.GameOverPanel, 1.5f));
+        });
     }
 
     public void InitializedUIElements()
@@ -30,6 +45,17 @@ public class GameUIManager : InGameManager
     public void ShowUIElement(UIElementEnums type)
     {
         uiElements[(int)type].Show();
+    }
+
+    public void HideUIElement(UIElementEnums type)
+    {
+        uiElements[(int)type].Hide();
+    }
+
+    private IEnumerator ShowDelayed(UIElementEnums type, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ShowUIElement(type);
     }
 
 }

@@ -14,4 +14,6 @@ public class UIElement : MonoBehaviour
     public virtual void Initialize() { }
 
     public virtual void Show() { }
+
+    public virtual void Hide() { }
 }

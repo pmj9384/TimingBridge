@@ -18,7 +18,13 @@ public class ScoreText : UIElement
 
     public override void Show()
     {
+        scoreText.text = "0";
         gameObject.SetActive(true);
+    }
+
+    public override void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     private void OnScoreChanged(int score)
