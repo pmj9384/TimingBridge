@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoSingleton<GameManager>
@@ -129,6 +130,12 @@ public class GameManager : MonoSingleton<GameManager>
         gameStateExitAction[(int)previousState]?.Invoke();
         gameStateEnterAction[(int)currentState]?.Invoke();
         gameStateStartAction[(int)currentState]?.Invoke();
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void AddGameStateEnterAction(GameState state, Action action) => gameStateEnterAction[(int)state] += action;

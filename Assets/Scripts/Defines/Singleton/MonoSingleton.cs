@@ -46,7 +46,11 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_instance == this)
         {
             _instance = null;
-            _isQuitting = true;
         }
+    }
+
+    protected virtual void OnApplicationQuit()
+    {
+        _isQuitting = true;
     }
 }

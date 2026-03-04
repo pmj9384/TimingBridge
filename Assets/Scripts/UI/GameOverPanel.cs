@@ -1,8 +1,14 @@
+using UnityEngine;
+using UnityEngine.UI;
+
 public class GameOverPanel : UIElement
 {
+    [SerializeField] private Button restartButton;
+
     public override void Initialize()
     {
         gameObject.SetActive(false);
+        restartButton.onClick.AddListener(OnRestartClicked);
     }
 
     public override void Show()
@@ -13,5 +19,10 @@ public class GameOverPanel : UIElement
     public override void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnRestartClicked()
+    {
+        gameManager.RestartGame();
     }
 }
