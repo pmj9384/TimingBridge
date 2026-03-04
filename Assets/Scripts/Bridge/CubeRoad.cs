@@ -129,12 +129,12 @@ public class CubeRoad : MonoBehaviour
     }
     private void CheckSuccess()
     {
-        Vector3 rayDirection = Vector3.down * 5.0f;
+        int platformLayer = LayerMask.GetMask("Platform");
+        Vector3 startPos = _checkPoint.position + Vector3.up * 0.1f;
 
-        // 씬 창에 빨간 선 그리기
-        Debug.DrawRay(_checkPoint.position, rayDirection, Color.red, 5.0f);
+        Debug.DrawRay(startPos, Vector3.down * 5.0f, Color.red, 5.0f);
         RaycastHit hit;
-        if (Physics.Raycast(_checkPoint.position, Vector3.down, out hit, 5.0f))
+        if (Physics.Raycast(startPos, Vector3.down, out hit, 5.0f, platformLayer))
         {
             Debug.Log("발판 성공!");
             onBridgeResults?.Invoke(true, hit.point);
