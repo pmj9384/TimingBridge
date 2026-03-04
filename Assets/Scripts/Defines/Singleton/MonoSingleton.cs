@@ -14,15 +14,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
             if (_instance == null)
             {
-                // 1. 씬에 이미 있는지 확인
                 _instance = FindFirstObjectByType<T>();
-
-                // 2. 없다면 새로 생성
-                if (_instance == null)
-                {
-                    GameObject obj = new GameObject(typeof(T).Name);
-                    _instance = obj.AddComponent<T>();
-                }
             }
             return _instance;
         }
