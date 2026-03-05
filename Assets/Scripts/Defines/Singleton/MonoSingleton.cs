@@ -1,48 +1,87 @@
 using UnityEngine;
 
-// 어떤 클래스든 상속만 받으면 싱글톤으로 만들어주는 베이스 클래스
-public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace UnityCommunity.UnitySingleton
 {
-    private static T _instance;
-    private static bool _isQuitting = false;
-
-    public static T Instance
+    /// <summary>
+    /// The basic MonoBehaviour singleton implementation, this singleton is destroyed after scene changes, use <see cref="PersistentMonoSingleton{T}"/> if you want a persistent and global singleton instance.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class MonoSingleton<T> : MonoBehaviour, ISingleton where T : MonoSingleton<T>
     {
-        get
-        {
-            if (_isQuitting) return null;
+        private static T instance;
+        private SingletonInitializationStatus initializationStatus = SingletonInitializationStatus.None;
 
-            if (_instance == null)
+        public static T Instance
+        {
+            get
             {
-                _instance = FindFirstObjectByType<T>();
+                if (instance == null)
+                {
+#if UNITY_6000
+                    instance = FindAnyObjectByType<T>();
+#else
+                    instance = FindObjectOfType<T>();
+#endif
+                    if (instance == null)
+                    {
+                        GameObject obj = new GameObject();
+                        obj.name = typeof(T).Name;
+                        instance = obj.AddComponent<T>();
+                        instance.OnMonoSingletonCreated();
+                    }
+                }
+                return instance;
             }
-            return _instance;
         }
-    }
 
-    protected virtual void Awake()
-    {
-        // 씬에 이미 인스턴스가 있다면 새로 깨어난 놈을 파괴 (중복 방지)
-        if (_instance == null)
-        {
-            _instance = this as T;
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
+        public virtual bool IsInitialized => this.initializationStatus == SingletonInitializationStatus.Initialized;
 
-    protected virtual void OnDestroy()
-    {
-        if (_instance == this)
+        protected virtual void Awake()
         {
-            _instance = null;
+            if (instance == null)
+            {
+                instance = this as T;
+                InitializeSingleton();
+            }
+            else
+            {
+                if (Application.isPlaying)
+                    Destroy(gameObject);
+                else
+                    DestroyImmediate(gameObject);
+            }
         }
-    }
 
-    protected virtual void OnApplicationQuit()
-    {
-        _isQuitting = true;
+        protected virtual void OnMonoSingletonCreated() { }
+        protected virtual void OnInitializing() { }
+        protected virtual void OnInitialized() { }
+
+        public virtual void InitializeSingleton()
+        {
+            if (this.initializationStatus != SingletonInitializationStatus.None)
+                return;
+
+            this.initializationStatus = SingletonInitializationStatus.Initializing;
+            OnInitializing();
+            this.initializationStatus = SingletonInitializationStatus.Initialized;
+            OnInitialized();
+        }
+
+        public virtual void ClearSingleton() { }
+
+        public static void CreateInstance()
+        {
+            DestroyInstance();
+            instance = Instance;
+        }
+
+        public static void DestroyInstance()
+        {
+            if (instance == null)
+                return;
+
+            instance.ClearSingleton();
+            instance = default(T);
+        }
     }
 }

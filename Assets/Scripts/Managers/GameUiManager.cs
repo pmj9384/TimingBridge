@@ -16,20 +16,27 @@ public class GameUIManager : InGameManager
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
         {
             ShowUIElement(UIElementEnums.ScoreText);
+            ShowUIElement(UIElementEnums.PauseButton);
         });
 
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameStop, () =>
         {
             HideUIElement(UIElementEnums.ScoreText);
+            HideUIElement(UIElementEnums.PauseButton);
+            ShowUIElement(UIElementEnums.PausePanel);
         });
 
         GameManager.AddGameStateExitAction(GameManager.GameState.GameStop, () =>
         {
             ShowUIElement(UIElementEnums.ScoreText);
+            ShowUIElement(UIElementEnums.PauseButton);
+            HideUIElement(UIElementEnums.PausePanel);
+            HideUIElement(UIElementEnums.SettingPanel);
         });
 
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
+            HideUIElement(UIElementEnums.PauseButton);
             StartCoroutine(ShowDelayed(UIElementEnums.GameOverPanel, 1.5f));
         });
     }

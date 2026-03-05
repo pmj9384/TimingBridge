@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCommunity.UnitySingleton;
 
 
 public class GameManager : MonoSingleton<GameManager>
@@ -157,12 +158,11 @@ public class GameManager : MonoSingleton<GameManager>
     {
         Time.timeScale = previousStopTimeScale;
     }
-    protected override void OnDestroy()
+    protected virtual void OnDestroy()
     {
         foreach (var manager in managers)
         {
             manager.Clear();
         }
-        base.OnDestroy();
     }
 }

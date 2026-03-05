@@ -257,7 +257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7468233292807702395}
   - component: {fileID: 6584799789920072573}
-  - component: {fileID: 3410474065369144793}
   m_Layer: 0
   m_Name: FallPoint
   m_TagString: Untagged
@@ -301,15 +300,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 13.2350445, y: 0, z: 5.6927166}
   m_Center: {x: -1.6699371, y: 0.5, z: -0.8615198}
---- !u!114 &3410474065369144793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6924236613079529797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a5a591d0d4545308c50103d60295ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
