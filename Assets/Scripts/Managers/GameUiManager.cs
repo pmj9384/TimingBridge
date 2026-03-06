@@ -23,14 +23,13 @@ public class GameUIManager : InGameManager
         {
             HideUIElement(UIElementEnums.ScoreText);
             HideUIElement(UIElementEnums.PauseButton);
-            ShowUIElement(UIElementEnums.PausePanel);
+            ShowUIElement(UIElementEnums.SettingPanel);
         });
 
         GameManager.AddGameStateExitAction(GameManager.GameState.GameStop, () =>
         {
             ShowUIElement(UIElementEnums.ScoreText);
             ShowUIElement(UIElementEnums.PauseButton);
-            HideUIElement(UIElementEnums.PausePanel);
             HideUIElement(UIElementEnums.SettingPanel);
         });
 

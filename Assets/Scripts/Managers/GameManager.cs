@@ -73,9 +73,15 @@ public class GameManager : MonoSingleton<GameManager>
         gameStateStartAction = new Action[stateCount];
         gameStateExitAction = new Action[stateCount];
 
-        // 기본 일시정지,재생 로직 
+        // 기본 일시정지,재생 로직
         AddGameStateStartAction(GameState.GameStop, PauseTimeScale);
         AddGameStateExitAction(GameState.GameStop, ResumeTimeScale);
+
+        // BGM 연결
+        AddGameStateEnterAction(GameState.GameReady, () => SoundManager.Instance.PlayBgm(BgmClipId.IngameBGM));
+        AddGameStateEnterAction(GameState.GameStop,  () => SoundManager.Instance.PauseBgm());
+        AddGameStateExitAction(GameState.GameStop,   () => SoundManager.Instance.ResumeBgm());
+        AddGameStateEnterAction(GameState.GameOver,  () => SoundManager.Instance.StopBgm());
     }
 
 
