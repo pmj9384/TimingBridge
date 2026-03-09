@@ -32,7 +32,6 @@ public class PlayerMove : MonoBehaviour
             _isMoving = false; // 여기서 딱 멈춤!
 
             Debug.Log("성공: 발판 중앙 도착");
-            GameManager.Instance.BridgeManager.Spawner.ReleasePreviousSet();
             OnArrival?.Invoke();
         }
         else

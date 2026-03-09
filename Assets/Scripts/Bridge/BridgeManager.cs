@@ -32,6 +32,8 @@ public class BridgeManager : InGameManager
             bridgeSpawner.CurrentBridge?.GetComponent<CubeRoad>()?.OnGameOver();
         });
 
+        GameManager.Instance.PlayerManager.OnPlayerArrived += Spawner.ReleasePreviousSet;
+
         onBridgeResults = new Action<Vector3>[2];
 
         // 2. 결과에 따른 로직 등록 (GameManager의 InitializeStateActions와 같은 방식)
@@ -44,7 +46,6 @@ public class BridgeManager : InGameManager
         {
             Vector3 realTarget = Spawner.GetCurrentPlatformPos();
             GameManager.Instance.PlayerManager.MovePlayer(realTarget, true);
-            GameManager.Instance.PlayerManager.OnPlayerArrived += Spawner.ReleasePreviousSet;
             bridgeSpawner.SpawnNextBridge(realTarget);
         });
 
