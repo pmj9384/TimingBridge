@@ -13,6 +13,7 @@ public class CubeRoad : MonoBehaviour
     private Coroutine _growRoutine;
     private Transform _checkPoint;
     public Action<bool, Vector3> onBridgeResults;
+    public Func<bool> isPlayerMoving;
     private bool _canGrow = true;
     private Rigidbody _rb;
 
@@ -25,14 +26,11 @@ public class CubeRoad : MonoBehaviour
     private void OnEnable()
     {
         _canGrow = true;
-        if (GameManager.Instance != null)
-            GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, OnGameOver);
+        isShrinking = false;
     }
 
     private void OnDisable()
     {
-        if (GameManager.Instance != null)
-            GameManager.Instance.RemoveGameStateEnterAction(GameManager.GameState.GameOver, OnGameOver);
         if (_rb != null)
         {
             _rb.isKinematic = true;
@@ -40,7 +38,7 @@ public class CubeRoad : MonoBehaviour
         }
     }
 
-    private void OnGameOver()
+    public void OnGameOver()
     {
         if (_rb != null)
         {
@@ -67,7 +65,7 @@ public class CubeRoad : MonoBehaviour
 
     public void OnNewAction(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.PlayerManager.IsMoving) return;
+        if (isPlayerMoving?.Invoke() == true) return;
         if (!_canGrow) return;
         // 버튼 누르기 시작
         if (context.started)

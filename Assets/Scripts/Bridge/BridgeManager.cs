@@ -27,6 +27,11 @@ public class BridgeManager : InGameManager
         {
             bridgeSpawner.SpawnNextBridge(bridgeSpawner.GetCurrentPlatformPos());
         });
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
+        {
+            bridgeSpawner.CurrentBridge?.GetComponent<CubeRoad>()?.OnGameOver();
+        });
+
         onBridgeResults = new Action<Vector3>[2];
 
         // 2. 결과에 따른 로직 등록 (GameManager의 InitializeStateActions와 같은 방식)

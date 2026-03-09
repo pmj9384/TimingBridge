@@ -68,6 +68,7 @@ public class BridgeSpawner : MonoBehaviour
         }
         var cubeRoad = bridgeObj.GetComponent<CubeRoad>();
         cubeRoad.onBridgeResults = GameManager.Instance.BridgeManager.OnBridgeResult;
+        cubeRoad.isPlayerMoving = () => GameManager.Instance.PlayerManager.IsMoving;
     }
 
     // 다리가 화면 뒤로 사라지거나 실패했을 때 호출
