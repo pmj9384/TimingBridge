@@ -15,7 +15,7 @@ public class GameManager : MonoSingleton<GameManager>
         WaitLoading,
         GameReady,
         GamePlay,
-        
+
         GameStop,
         GameOver,
         GameClear,
@@ -52,9 +52,16 @@ public class GameManager : MonoSingleton<GameManager>
         SetGameState(GameState.WaitLoading);
     }
 
+    public static bool SkipTitle;
+
     private void Start()
     {
         SetGameState(GameState.GameReady);
+        if (SkipTitle)
+        {
+            SkipTitle = false;
+            SetGameState(GameState.GamePlay);
+        }
     }
 
     private void SetInitialSettings()
@@ -80,9 +87,9 @@ public class GameManager : MonoSingleton<GameManager>
 
         // BGM 연결
         AddGameStateEnterAction(GameState.GameReady, () => SoundManager.Instance.PlayBgm(BgmClipId.IngameBGM));
-        AddGameStateEnterAction(GameState.GameStop,  () => SoundManager.Instance.PauseBgm());
-        AddGameStateExitAction(GameState.GameStop,   () => SoundManager.Instance.ResumeBgm());
-        AddGameStateEnterAction(GameState.GameOver,  () => SoundManager.Instance.StopBgm());
+        AddGameStateEnterAction(GameState.GameStop, () => SoundManager.Instance.PauseBgm());
+        AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeBgm());
+        AddGameStateEnterAction(GameState.GameOver, () => SoundManager.Instance.StopBgm());
     }
 
 
@@ -141,6 +148,13 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public void RestartGame()
+    {
+        SkipTitle = true;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToTitle()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
