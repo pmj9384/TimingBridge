@@ -15,6 +15,12 @@ public class GameUIManager : InGameManager
 
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
         {
+            ShowUIElement(UIElementEnums.TitlePanel);
+        });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
+        {
+            HideUIElement(UIElementEnums.TitlePanel);
             ShowUIElement(UIElementEnums.ScoreText);
             ShowUIElement(UIElementEnums.PauseButton);
         });

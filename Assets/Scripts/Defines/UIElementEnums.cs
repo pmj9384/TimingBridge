@@ -1,8 +1,9 @@
 public enum UIElementEnums
 {
 	ScoreText,
-	GameOverPanel,
 	PauseButton,
+	GameOverPanel,
 	PausePanel,
 	SettingPanel,
+	TitlePanel,
 }

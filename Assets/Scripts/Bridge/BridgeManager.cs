@@ -23,7 +23,7 @@ public class BridgeManager : InGameManager
             bridgeSpawner.InitializeSpawner();
         }
 
-        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
         {
             bridgeSpawner.SpawnNextBridge(bridgeSpawner.GetCurrentPlatformPos());
         });

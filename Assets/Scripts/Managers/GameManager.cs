@@ -15,6 +15,7 @@ public class GameManager : MonoSingleton<GameManager>
         WaitLoading,
         GameReady,
         GamePlay,
+        
         GameStop,
         GameOver,
         GameClear,
