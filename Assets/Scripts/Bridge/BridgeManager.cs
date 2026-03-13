@@ -11,6 +11,7 @@ public class BridgeManager : InGameManager
     public Action<bool, Vector3> OnBridgeResultOccurred;
 
     private int score = 0;
+    public int Score => score;
     [SerializeField] private BridgeSpawner bridgeSpawner;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;
@@ -30,6 +31,8 @@ public class BridgeManager : InGameManager
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
             bridgeSpawner.CurrentBridge?.GetComponent<CubeRoad>()?.OnGameOver();
+            GameDataManager.Instance.PlayerAccountData.TryUpdateBestScore(score);
+            SaveLoadSystem.Instance.Save();
         });
 
         GameManager.Instance.PlayerManager.OnPlayerArrived += Spawner.ReleasePreviousSet;

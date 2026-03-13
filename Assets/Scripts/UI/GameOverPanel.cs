@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOverPanel : UIElement
 {
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text bestScoreText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button homeButton;
 
@@ -15,6 +18,12 @@ public class GameOverPanel : UIElement
 
     public override void Show()
     {
+        int score = gameManager.BridgeManager.Score;
+        int best = GameDataManager.Instance.PlayerAccountData.BestScore;
+
+        scoreText.text = score.ToString();
+        bestScoreText.text = best.ToString();
+
         gameObject.SetActive(true);
     }
 

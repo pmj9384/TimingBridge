@@ -13,6 +13,15 @@ public class PlayerAccountData : ISaveLoad
     //public int GachaSingleAdsRemainCount { get; set; }
     //private DateTime gachaLastUpdate;
 
+    public int BestScore { get; private set; }
+
+    public bool TryUpdateBestScore(int score)
+    {
+        if (score <= BestScore) return false;
+        BestScore = score;
+        return true;
+    }
+
     private float bgmVolume;
     public float BgmVolume
     {
@@ -50,6 +59,7 @@ public class PlayerAccountData : ISaveLoad
 
         saveData.bgmVolume = SoundManager.Instance.bgmVolume;
         saveData.sfxVolume = SoundManager.Instance.sfxVolume;
+        saveData.bestScore = BestScore;
 
         // [AnimalBreakOut] 프레임레이트, 언어
         //saveData.frameRateIndex = GameDataManager.Instance.frameRateIndex;
@@ -64,6 +74,7 @@ public class PlayerAccountData : ISaveLoad
 
         BgmVolume = 1f;
         SfxVolume = 1f;
+        BestScore = 0;
     }
 
     public void Load(PlayerAccountDataSave saveData)
@@ -84,6 +95,8 @@ public class PlayerAccountData : ISaveLoad
 
         SfxVolume = saveData.sfxVolume;
         SoundManager.Instance.SetSfxVolume(SfxVolume);
+
+        BestScore = saveData.bestScore;
 
         // [AnimalBreakOut] 프레임레이트, 언어
         //frameRateIndex = saveData.frameRateIndex;

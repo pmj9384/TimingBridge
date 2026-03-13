@@ -10,6 +10,7 @@ public class PlayerAccountDataSave
 
     public float bgmVolume;
     public float sfxVolume;
+    public int bestScore;
 
     // [AnimalBreakOut] 프레임레이트, 언어
     //public int frameRateIndex;
