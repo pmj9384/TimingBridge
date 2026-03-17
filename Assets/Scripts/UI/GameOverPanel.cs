@@ -8,12 +8,14 @@ public class GameOverPanel : UIElement
     [SerializeField] private TMP_Text bestScoreText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button homeButton;
+    [SerializeField] private Button reviveButton;
 
     public override void Initialize()
     {
         gameObject.SetActive(false);
         restartButton.onClick.AddListener(OnRestartClicked);
         homeButton.onClick.AddListener(OnHomeClicked);
+        reviveButton.onClick.AddListener(OnReviveClicked);
     }
 
     public override void Show()
@@ -23,6 +25,7 @@ public class GameOverPanel : UIElement
 
         scoreText.text = score.ToString();
         bestScoreText.text = best.ToString();
+        reviveButton.gameObject.SetActive(gameManager.BridgeManager.HasRevive);
 
         gameObject.SetActive(true);
     }
@@ -35,4 +38,10 @@ public class GameOverPanel : UIElement
     private void OnRestartClicked() => gameManager.RestartGame();
 
     private void OnHomeClicked() => gameManager.GoToTitle();
+
+    private void OnReviveClicked()
+    {
+        Hide();
+        gameManager.PlayerManager.Revive();
+    }
 }

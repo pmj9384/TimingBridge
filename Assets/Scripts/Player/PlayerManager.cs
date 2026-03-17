@@ -8,6 +8,7 @@ public class PlayerManager : InGameManager
     public System.Action OnPlayerArrived;
     private PlayerMove playerMove;
     private Rigidbody rb;
+    private Vector3 lastSuccessPos;
     public bool IsMoving => playerMove != null && playerMove.IsMoving;
     public override void Initialize()
     {
@@ -15,7 +16,12 @@ public class PlayerManager : InGameManager
         GameObject playerObj = GameObject.FindWithTag("Player");
         playerMove = playerObj.GetComponent<PlayerMove>();
         rb = playerObj.GetComponent<Rigidbody>();
-        playerMove.OnArrival += () => OnPlayerArrived?.Invoke();
+        lastSuccessPos = playerObj.transform.position;
+        playerMove.OnArrival += () =>
+        {
+            lastSuccessPos = playerMove.transform.position;
+            OnPlayerArrived?.Invoke();
+        };
         playerMove.OnFailureArrival += () => GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
 
         // 3. 게임오버 시 물리 작동 액션 등록
@@ -35,6 +41,31 @@ public class PlayerManager : InGameManager
     public void MovePlayer(Vector3 targetPos, bool isSuccess)
     {
         playerMove?.MoveToTarget(targetPos, moveSpeed, isSuccess);
+    }
 
+    public void Revive()
+    {
+        // 물리 복원 (velocity는 isKinematic 전에 초기화)
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
+        var bridgeManager = GameManager.Instance.BridgeManager;
+        bridgeManager.Revive();
+
+        bridgeManager.Spawner.ReviveReset();
+
+        // 위치 & 회전 즉시 복원 (마지막으로 발판에 도착했던 위치)
+        playerMove.transform.SetPositionAndRotation(lastSuccessPos, Quaternion.identity);
+
+        playerMove.OnArrival += OnReviveArrival;
+        MovePlayer(lastSuccessPos, true);
+    }
+
+    private void OnReviveArrival()
+    {
+        playerMove.OnArrival -= OnReviveArrival;
+        GameManager.Instance.SetGameState(GameManager.GameState.GamePlay);
     }
 }

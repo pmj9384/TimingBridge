@@ -15,7 +15,9 @@ public class BridgeManager : InGameManager
     [SerializeField] private BridgeSpawner bridgeSpawner;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;
-    public bool CanBuild { get; private set; } = true;
+    public bool CanBuild { get; set; } = true;
+    private bool hasRevive = true;
+    public bool HasRevive => hasRevive;
     public override void Initialize()
     {
         base.Initialize();
@@ -71,6 +73,12 @@ public class BridgeManager : InGameManager
 
         // 해당되는 액션 실행!
         onBridgeResults[index]?.Invoke(targetPos);
+    }
+
+    public void Revive()
+    {
+        hasRevive = false;
+        CanBuild = true;
     }
 
     public void AddResultAction(bool isSuccess, Action<Vector3> action)

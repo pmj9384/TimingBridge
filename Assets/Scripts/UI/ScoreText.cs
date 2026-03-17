@@ -18,7 +18,7 @@ public class ScoreText : UIElement
 
     public override void Show()
     {
-        scoreText.text = "0";
+        scoreText.text = gameManager.BridgeManager.Score.ToString();
         gameObject.SetActive(true);
     }
 

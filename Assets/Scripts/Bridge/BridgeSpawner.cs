@@ -97,4 +97,22 @@ public class BridgeSpawner : MonoBehaviour
         // 생성된 플랫폼의 중앙 위치(Pivot)를 반환
         return currentPlatform.transform.position;
     }
+
+    public Vector3 ReviveReset()
+    {
+        // 실패한 다리 & 못 넘은 발판 반환
+        if (currentBridge != null)   { bridgePool.Release(currentBridge);    currentBridge = null; }
+        if (currentPlatform != null) { platformPool.Release(currentPlatform); currentPlatform = null; }
+
+        // 부활 위치 = 마지막 성공 발판
+        Vector3 revivePos = previousPlatform.transform.position;
+
+        // 슬라이딩 포인터 리셋 — SpawnNextBridge는 GamePlay Enter 액션이 처리
+        currentPlatform  = previousPlatform;
+        previousPlatform = null;
+        previousBridge   = null;
+        oldPlatform      = null;
+
+        return revivePos;
+    }
 }
