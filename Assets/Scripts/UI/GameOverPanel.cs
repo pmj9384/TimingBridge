@@ -41,7 +41,12 @@ public class GameOverPanel : UIElement
 
     private void OnReviveClicked()
     {
-        Hide();
-        gameManager.PlayerManager.Revive();
+        AdsManager.Instance.ShowRewardedAd(
+            onRewarded: () =>
+            {
+                Hide();
+                gameManager.PlayerManager.Revive();
+            }
+        );
     }
 }
