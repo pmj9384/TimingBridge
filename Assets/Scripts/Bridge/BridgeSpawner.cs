@@ -34,7 +34,7 @@ public class BridgeSpawner : MonoBehaviour
         onRelease: (obj) => obj.SetActive(false)
    );
         GameObject startPlatform = platformPool.Get();
-        startPlatform.transform.position = Vector3.zero;
+        startPlatform.transform.position = new Vector3(0f, -1.09f, 0f);
         startPlatform.transform.rotation = Quaternion.identity;
 
         // 얘를 'current'로 일단 둬서 SpawnNextBridge가 얘를 previous로 밀어냄
@@ -53,6 +53,7 @@ public class BridgeSpawner : MonoBehaviour
         bridgeObj.transform.rotation = Quaternion.identity;
         bridgeObj.transform.localScale = Vector3.one;
 
+        bridgeObj.GetComponentInChildren<MeshRenderer>().enabled = false;
         currentBridge = bridgeObj;
         // 4. 위치 계산
         if (!isFirst)
@@ -61,7 +62,7 @@ public class BridgeSpawner : MonoBehaviour
 
             float randomDist = Random.Range(10f, 20f);
 
-            Vector3 nextPos = new Vector3(currentPlatformPos.x, 0f, currentPlatformPos.z + randomDist);
+            Vector3 nextPos = new Vector3(currentPlatformPos.x, -1.09f, currentPlatformPos.z + randomDist);
             nextPlatform.transform.position = nextPos;
             nextPlatform.transform.rotation = Quaternion.identity;
             currentPlatform = nextPlatform;
@@ -69,6 +70,12 @@ public class BridgeSpawner : MonoBehaviour
         var cubeRoad = bridgeObj.GetComponent<CubeRoad>();
         cubeRoad.onBridgeResults = GameManager.Instance.BridgeManager.OnBridgeResult;
         cubeRoad.isPlayerMoving = () => GameManager.Instance.PlayerManager.IsMoving;
+    }
+
+    public void ShowCurrentBridge()
+    {
+        if (currentBridge != null)
+            currentBridge.GetComponentInChildren<MeshRenderer>().enabled = true;
     }
 
     // 다리가 화면 뒤로 사라지거나 실패했을 때 호출

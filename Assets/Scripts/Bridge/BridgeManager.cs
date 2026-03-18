@@ -29,6 +29,7 @@ public class BridgeManager : InGameManager
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
         {
             bridgeSpawner.SpawnNextBridge(bridgeSpawner.GetCurrentPlatformPos());
+            bridgeSpawner.ShowCurrentBridge();
         });
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
@@ -37,7 +38,12 @@ public class BridgeManager : InGameManager
             SaveLoadSystem.Instance.Save();
         });
 
-        GameManager.Instance.PlayerManager.OnPlayerArrived += Spawner.ReleasePreviousSet;
+        GameManager.Instance.PlayerManager.OnPlayerArrived += () =>
+        {
+            Spawner.ReleasePreviousSet();
+            Spawner.ShowCurrentBridge();
+            CanBuild = true;
+        };
 
         onBridgeResults = new Action<Vector3>[2];
 
