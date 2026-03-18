@@ -28,6 +28,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private GameState previousState;
     private GameState currentState;
+    public GameState CurrentState => currentState;
 
     private float previousStopTimeScale;
 

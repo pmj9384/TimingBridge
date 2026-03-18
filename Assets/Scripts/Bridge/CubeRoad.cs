@@ -65,6 +65,7 @@ public class CubeRoad : MonoBehaviour
 
     public void OnNewAction(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.CurrentState != GameManager.GameState.GamePlay) return;
         if (isPlayerMoving?.Invoke() == true) return;
         if (!_canGrow) return;
         // 버튼 누르기 시작

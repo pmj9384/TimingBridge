@@ -54,6 +54,7 @@ public class BridgeSpawner : MonoBehaviour
         bridgeObj.transform.localScale = Vector3.one;
 
         bridgeObj.GetComponentInChildren<MeshRenderer>().enabled = false;
+        bridgeObj.GetComponent<UnityEngine.InputSystem.PlayerInput>().enabled = false;
         currentBridge = bridgeObj;
         // 4. 위치 계산
         if (!isFirst)
@@ -75,7 +76,10 @@ public class BridgeSpawner : MonoBehaviour
     public void ShowCurrentBridge()
     {
         if (currentBridge != null)
+        {
             currentBridge.GetComponentInChildren<MeshRenderer>().enabled = true;
+            currentBridge.GetComponent<UnityEngine.InputSystem.PlayerInput>().enabled = true;
+        }
     }
 
     // 다리가 화면 뒤로 사라지거나 실패했을 때 호출
