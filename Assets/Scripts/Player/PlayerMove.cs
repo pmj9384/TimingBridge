@@ -6,6 +6,12 @@ public class PlayerMove : MonoBehaviour
 {
     private bool _isMoving = false;
     public bool IsMoving => _isMoving;
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponentInChildren<Animator>();
+    }
     public System.Action OnArrival;
     public System.Action OnFailureArrival;
 
@@ -18,6 +24,7 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator MoveRoutine(Vector3 targetPos, float speed, bool isSuccess)
     {
         _isMoving = true;
+        _animator?.SetTrigger("Walk");
 
         Vector3 finalTarget = new Vector3(targetPos.x, transform.position.y, targetPos.z);
         if (isSuccess)
@@ -28,8 +35,9 @@ public class PlayerMove : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, finalTarget, speed * Time.deltaTime);
                 yield return null;
             }
-            transform.position = finalTarget; // 위치 보정
-            _isMoving = false; // 여기서 딱 멈춤!
+            transform.position = finalTarget;
+            _isMoving = false;
+            _animator?.SetTrigger("Idle");
 
             Debug.Log("성공: 발판 중앙 도착");
             OnArrival?.Invoke();
@@ -44,6 +52,7 @@ public class PlayerMove : MonoBehaviour
             }
             transform.position = finalTarget;
             _isMoving = false;
+            _animator?.SetTrigger("Idle");
             OnFailureArrival?.Invoke();
         }
     }
