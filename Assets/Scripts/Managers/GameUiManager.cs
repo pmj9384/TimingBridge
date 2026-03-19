@@ -29,14 +29,14 @@ public class GameUIManager : InGameManager
         {
             HideUIElement(UIElementEnums.ScoreText);
             HideUIElement(UIElementEnums.PauseButton);
-            ShowUIElement(UIElementEnums.SettingPanel);
+            ShowUIElement(UIElementEnums.PausePanel);
         });
 
         GameManager.AddGameStateExitAction(GameManager.GameState.GameStop, () =>
         {
             ShowUIElement(UIElementEnums.ScoreText);
             ShowUIElement(UIElementEnums.PauseButton);
-            HideUIElement(UIElementEnums.SettingPanel);
+            HideUIElement(UIElementEnums.PausePanel);
         });
 
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>

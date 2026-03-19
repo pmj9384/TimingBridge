@@ -44,5 +44,9 @@ public class SettingPanel : UIElement
 
     private void OnRestartClicked() => gameManager.RestartGame();
 
-    private void OnCloseClicked() => gameManager.SetGameState(GameManager.GameState.GamePlay);
+    private void OnCloseClicked()
+    {
+        Hide();
+        gameUIManager.ShowUIElement(UIElementEnums.PausePanel);
+    }
 }
