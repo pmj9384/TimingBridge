@@ -12,7 +12,8 @@ public class CubeRoad : MonoBehaviour
     private bool isShrinking = false;
     private Coroutine _growRoutine;
     private Transform _checkPoint;
-    public Action<bool, Vector3> onBridgeResults;
+
+    public Action<bool, Vector3, bool> onBridgeResults;
     public Func<bool> isPlayerMoving;
     private bool _canGrow = true;
     private Rigidbody _rb;
@@ -135,13 +136,16 @@ public class CubeRoad : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(startPos, Vector3.down, out hit, 5.0f, platformLayer))
         {
-            Debug.Log("발판 성공!");
-            onBridgeResults?.Invoke(true, hit.point);
+            float dist = Mathf.Abs(hit.point.z - hit.collider.bounds.center.z);
+            float criticalZone = hit.collider.bounds.extents.z * 0.25f;
+            bool isCritical = dist < criticalZone;
+            Debug.Log($"발판 성공! isCritical={isCritical}, dist={dist:F2}");
+            onBridgeResults?.Invoke(true, hit.point, isCritical);
         }
         else
         {
             Debug.Log("실패!");
-            onBridgeResults?.Invoke(false, _checkPoint.position);
+            onBridgeResults?.Invoke(false, _checkPoint.position, false);
         }
     }
 }

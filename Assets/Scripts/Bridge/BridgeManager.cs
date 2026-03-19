@@ -8,7 +8,7 @@ public class BridgeManager : InGameManager
 
     public bool IsLastSuccess { get; private set; }
     public Action<Vector3>[] onBridgeResults;
-    public Action<bool, Vector3> OnBridgeResultOccurred;
+    public Action<bool, Vector3, bool> OnBridgeResultOccurred;
 
     private int score = 0;
     public int Score => score;
@@ -63,15 +63,17 @@ public class BridgeManager : InGameManager
     }
 
 
-    public void OnBridgeResult(bool isSuccess, Vector3 targetPos)
+    public void OnBridgeResult(bool isSuccess, Vector3 targetPos, bool isCritical = false)
     {
         CanBuild = false;
-        // [추가] 상태 기록 및 외부 방송
         IsLastSuccess = isSuccess;
-        OnBridgeResultOccurred?.Invoke(isSuccess, targetPos);
+        OnBridgeResultOccurred?.Invoke(isSuccess, targetPos, isCritical);
         if (isSuccess)
         {
-            score++;
+            if (isCritical)
+                score += 2;
+            else
+                score += 1;
             OnScoreChanged?.Invoke(score);
         }
 
