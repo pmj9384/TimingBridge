@@ -13,6 +13,7 @@ public class BridgeManager : InGameManager
     private int score = 0;
     public int Score => score;
     [SerializeField] private BridgeSpawner bridgeSpawner;
+    [SerializeField] private GameObject criticalEffect;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;
     public bool CanBuild { get; set; } = true;
@@ -71,7 +72,15 @@ public class BridgeManager : InGameManager
         if (isSuccess)
         {
             if (isCritical)
+            {
                 score += 2;
+                if (criticalEffect != null)
+                {
+                    Vector3 fxPos = new Vector3(targetPos.x, targetPos.y + 1f, targetPos.z);
+                    GameObject fx = Instantiate(criticalEffect, fxPos, Quaternion.identity);
+                    Destroy(fx, 3f);
+                }
+            }
             else
                 score += 1;
             OnScoreChanged?.Invoke(score);
