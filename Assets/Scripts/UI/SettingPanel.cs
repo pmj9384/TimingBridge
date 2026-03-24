@@ -6,7 +6,6 @@ public class SettingPanel : UIElement
 {
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;
-    [SerializeField] private Button restartButton;
     [SerializeField] private Button closeButton;
 
     public static event Action<float, float> onBgmVolumeChanged;
@@ -16,7 +15,6 @@ public class SettingPanel : UIElement
         gameObject.SetActive(false);
         bgmSlider.onValueChanged.AddListener(OnBgmSliderChanged);
         sfxSlider.onValueChanged.AddListener(OnSfxSliderChanged);
-        restartButton.onClick.AddListener(OnRestartClicked);
         closeButton.onClick.AddListener(OnCloseClicked);
     }
 
@@ -41,8 +39,6 @@ public class SettingPanel : UIElement
     {
         onBgmVolumeChanged?.Invoke(SoundManager.Instance.bgmVolume, value);
     }
-
-    private void OnRestartClicked() => gameManager.RestartGame();
 
     private void OnCloseClicked()
     {
