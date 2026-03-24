@@ -29,6 +29,7 @@ public class GameManager : MonoSingleton<GameManager>
     private GameState previousState;
     private GameState currentState;
     public GameState CurrentState => currentState;
+    public GameState PreviousState => previousState;
 
     private float previousStopTimeScale;
 
@@ -89,7 +90,9 @@ public class GameManager : MonoSingleton<GameManager>
         // BGM 연결
         AddGameStateEnterAction(GameState.GameReady, () => SoundManager.Instance.PlayBgm(BgmClipId.IngameBGM));
         AddGameStateEnterAction(GameState.GameStop, () => SoundManager.Instance.PauseBgm());
+        AddGameStateEnterAction(GameState.GameStop, () => SoundManager.Instance.PauseSfx());
         AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeBgm());
+        AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeSfx());
         AddGameStateEnterAction(GameState.GameOver, () => SoundManager.Instance.StopBgm());
     }
 

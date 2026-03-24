@@ -29,6 +29,7 @@ public class BridgeManager : InGameManager
 
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
         {
+            if (GameManager.Instance.PreviousState == GameManager.GameState.GameStop) return;
             bridgeSpawner.SpawnNextBridge(bridgeSpawner.GetCurrentPlatformPos());
             bridgeSpawner.ShowCurrentBridge();
         });
