@@ -74,6 +74,7 @@ public class BridgeManager : InGameManager
             if (isCritical)
             {
                 score += 2;
+                SoundManager.Instance.PlaySfx(SfxClipId.LandCritical);
                 if (criticalEffect != null)
                 {
                     Vector3 fxPos = new Vector3(targetPos.x, targetPos.y + 1f, targetPos.z);
@@ -82,8 +83,15 @@ public class BridgeManager : InGameManager
                 }
             }
             else
+            {
                 score += 1;
+                SoundManager.Instance.PlaySfx(SfxClipId.LandSuccess);
+            }
             OnScoreChanged?.Invoke(score);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySfx(SfxClipId.LandFail);
         }
 
         int index = isSuccess ? 1 : 0;

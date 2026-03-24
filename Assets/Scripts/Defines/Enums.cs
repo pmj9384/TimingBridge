@@ -1,42 +1,16 @@
 public enum BgmClipId
 {
-    MainLobbyBgm,
     IngameBGM,
-    BossBGM,
-    BossIntroBGM,
 }
 
 public enum SfxClipId
 {
+    BridgeFall,
+    LandSuccess,
+    LandCritical,
+    LandFail,
+    Footstep,
     ButtonTouch,
-    GachaResult,
-    UpgradeComplete,
-    Death,
-    EarnCoin,
-    Jump,
-    LvlUp,
-    Revive,
-    RobotHit,
-    SkillReroll,
-    SkillSelect,
-    Boss1SwordSlash1,
-    Boss1SwordSlash2,
-    Boss1SwordSlash3,
-    BossAlert,
-    BossDeath,
-
-    BossTimeAlert,
-    TimeUp,
-    FireballHit,
-    FireballThrow,
-    MeteorHit,
-    BlizzardActivate,
-    BlizzardHit,
-    IceShotHit,
-    LightningOrb,
-    LightningShockHit,
-    LightningShockThrow,
-    LightningStrike,
     None,
 }
 

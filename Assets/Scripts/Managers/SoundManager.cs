@@ -15,7 +15,7 @@ public class SoundManager : PersistentMonoSingleton<SoundManager>
     
     [SerializedDictionary("SfxClipId", "AudioClip")]
     [SerializeField] private SerializedDictionary<SfxClipId, AudioClip> sfxClips;
-    [SerializeField] [ReadOnly] public List<AudioSource> sfxAudioSourceList; 
+    [SerializeField] [ReadOnly] public List<AudioSource> sfxAudioSourceList;
     public float sfxVolume { get; private set; }
     private int channelIndex;
     public GameObject audioSourcePlayer;
@@ -132,6 +132,20 @@ public class SoundManager : PersistentMonoSingleton<SoundManager>
             
             break;
         }
+    }
+
+    public void PlaySfxLoop(SfxClipId clipId)
+    {
+        if (!sfxClips.ContainsKey(clipId)) return;
+        sfxAudioSourceList[0].clip = sfxClips[clipId];
+        sfxAudioSourceList[0].loop = true;
+        sfxAudioSourceList[0].Play();
+    }
+
+    public void StopSfxLoop()
+    {
+        sfxAudioSourceList[0].loop = false;
+        sfxAudioSourceList[0].Stop();
     }
 
     public void StopSfx()

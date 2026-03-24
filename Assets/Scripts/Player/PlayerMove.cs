@@ -25,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     {
         _isMoving = true;
         _animator?.SetTrigger("Walk");
+        SoundManager.Instance.PlaySfxLoop(SfxClipId.Footstep);
 
         Vector3 finalTarget = new Vector3(targetPos.x, transform.position.y, targetPos.z);
         if (isSuccess)
@@ -36,6 +37,7 @@ public class PlayerMove : MonoBehaviour
                 yield return null;
             }
             transform.position = finalTarget;
+            SoundManager.Instance.StopSfxLoop();
             _isMoving = false;
             _animator?.SetTrigger("Idle");
 
@@ -51,6 +53,7 @@ public class PlayerMove : MonoBehaviour
                 yield return null;
             }
             transform.position = finalTarget;
+            SoundManager.Instance.StopSfxLoop();
             _isMoving = false;
             _animator?.SetTrigger("Idle");
             OnFailureArrival?.Invoke();

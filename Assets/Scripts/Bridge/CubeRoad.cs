@@ -72,7 +72,6 @@ public class CubeRoad : MonoBehaviour
         // 버튼 누르기 시작
         if (context.started)
         {
-
             if (_growRoutine != null) StopCoroutine(_growRoutine);
             _growRoutine = StartCoroutine(GrowRoutine());
         }
@@ -124,6 +123,7 @@ public class CubeRoad : MonoBehaviour
             yield return null;
         }
         transform.rotation = Quaternion.Euler(targetAngle, 0, 0);
+        SoundManager.Instance.PlaySfx(SfxClipId.BridgeFall);
         yield return new WaitForEndOfFrame();
         CheckSuccess();
     }
