@@ -1,15 +1,10 @@
-using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class PauseButton : UIElement
+public class PauseButton : UIElement, IPointerDownHandler
 {
-    private Button button;
-
     public override void Initialize()
     {
         gameObject.SetActive(false);
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnPauseClicked);
     }
 
     public override void Show()
@@ -22,7 +17,7 @@ public class PauseButton : UIElement
         gameObject.SetActive(false);
     }
 
-    private void OnPauseClicked()
+    public void OnPointerDown(PointerEventData eventData)
     {
         gameManager.SetGameState(GameManager.GameState.GameStop);
     }
