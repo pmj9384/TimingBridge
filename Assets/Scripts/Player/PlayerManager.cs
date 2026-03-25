@@ -34,6 +34,31 @@ public class PlayerManager : InGameManager
             rb.angularVelocity = Vector3.zero;
             Debug.Log("플레이어 추락 시퀀스 시작");
         });
+
+        // 4. 다리 ActionMap — GamePlay 상태에서만 활성화
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GamePlay,    () => StartCoroutine(EnableBridgeActionMapNextFrame()));
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.WaitLoading, () => SetBridgeActionMap(false));
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameReady,   () => SetBridgeActionMap(false));
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameStop,    () => SetBridgeActionMap(false));
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver,    () => SetBridgeActionMap(false));
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameClear,   () => SetBridgeActionMap(false));
+    }
+
+    private System.Collections.IEnumerator EnableBridgeActionMapNextFrame()
+    {
+        yield return null; // Resume 버튼 터치가 끝날 때까지 대기
+        var bridge = GameManager.Instance.BridgeManager.Spawner.CurrentBridge;
+        if (bridge == null) yield break;
+        bridge.GetComponent<UnityEngine.InputSystem.PlayerInput>().currentActionMap?.Enable();
+    }
+
+    private void SetBridgeActionMap(bool enabled)
+    {
+        var bridge = GameManager.Instance.BridgeManager.Spawner.CurrentBridge;
+        if (bridge == null) return;
+        var pi = bridge.GetComponent<UnityEngine.InputSystem.PlayerInput>();
+        bridge.GetComponent<CubeRoad>().ResetGrow();
+        pi.currentActionMap?.Disable();
     }
 
 

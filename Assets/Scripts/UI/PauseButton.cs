@@ -7,6 +7,7 @@ public class PauseButton : UIElement
 
     public override void Initialize()
     {
+        gameObject.SetActive(false);
         button = GetComponent<Button>();
         button.onClick.AddListener(OnPauseClicked);
     }

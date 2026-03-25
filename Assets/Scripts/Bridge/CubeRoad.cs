@@ -11,6 +11,7 @@ public class CubeRoad : MonoBehaviour
     private float minScale = 0.1f;
     private bool isShrinking = false;
     private Coroutine _growRoutine;
+    private Coroutine _fallRoutine;
     private Transform _checkPoint;
 
     public Action<bool, Vector3, bool> onBridgeResults;
@@ -28,6 +29,15 @@ public class CubeRoad : MonoBehaviour
     {
         _canGrow = true;
         isShrinking = false;
+    }
+
+    public void ResetGrow()
+    {
+        if (_growRoutine != null) { StopCoroutine(_growRoutine); _growRoutine = null; }
+        if (_fallRoutine != null) { StopCoroutine(_fallRoutine); _fallRoutine = null; }
+        bridgeMesh.localScale = Vector3.one;
+        transform.rotation = Quaternion.identity;
+        _canGrow = true;
     }
 
     private void OnDisable()
@@ -78,9 +88,11 @@ public class CubeRoad : MonoBehaviour
         // 손땟을때
         else if (context.canceled)
         {
+            if (_growRoutine == null) return; // 성장 중 아니면 무시
             _canGrow = false;
-            if (_growRoutine != null) StopCoroutine(_growRoutine);
-            StartCoroutine(FallDownRoutine());
+            StopCoroutine(_growRoutine);
+            _growRoutine = null;
+            _fallRoutine = StartCoroutine(FallDownRoutine());
         }
     }
 

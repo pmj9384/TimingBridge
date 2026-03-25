@@ -46,3 +46,4 @@ public class SettingPanel : UIElement
         gameUIManager.ShowUIElement(UIElementEnums.PausePanel);
     }
 }
+
