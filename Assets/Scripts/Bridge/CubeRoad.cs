@@ -148,6 +148,14 @@ public class CubeRoad : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(startPos, Vector3.down, out hit, 5.0f, platformLayer))
         {
+            // 출발 발판(bridge 기준 Z 이하)을 히트하면 실패 처리
+            if (hit.collider.bounds.center.z <= transform.position.z)
+            {
+                Debug.Log("실패! (출발 발판 히트)");
+                onBridgeResults?.Invoke(false, _checkPoint.position, false);
+                return;
+            }
+
             float dist = Mathf.Abs(hit.point.z - hit.collider.bounds.center.z);
             float criticalZone = hit.collider.bounds.extents.z * 0.25f;
             bool isCritical = dist < criticalZone;
