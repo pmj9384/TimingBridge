@@ -8,7 +8,7 @@ using UnityCommunity.UnitySingleton;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    // 어디서든 접근 가능한 싱글톤 (민재님의 UnitySingleton 사용 권장)
+    // 어디서든 접근 가능한 싱글톤 (민재 UnitySingleton 사용 권장)
 
     public enum GameState
     {
@@ -94,6 +94,7 @@ public class GameManager : MonoSingleton<GameManager>
         AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeBgm());
         AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeSfx());
         AddGameStateEnterAction(GameState.GameOver, () => SoundManager.Instance.StopBgm());
+        AddGameStateEnterAction(GameState.GameOver, () => GameDataManager.Instance.PlayerAccountData.TryUpdateBestScore(BridgeManager.Score));
     }
 
 

@@ -37,8 +37,8 @@ public class SoundManager : PersistentMonoSingleton<SoundManager>
 
     private void Start()
     {
-        bgmVolume = PlayerPrefs.GetFloat("BgmVolume", 1f);
-        sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
+        bgmVolume = GameDataManager.Instance.PlayerAccountData.BgmVolume;
+        sfxVolume = GameDataManager.Instance.PlayerAccountData.SfxVolume;
         channelIndex = 0;
         
         bgmAudioSource.loop = true;

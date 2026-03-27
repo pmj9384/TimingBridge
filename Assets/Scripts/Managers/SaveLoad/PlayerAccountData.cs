@@ -91,10 +91,7 @@ public class PlayerAccountData : ISaveLoad
         //else { GachaSingleAdsRemainCount = saveData.gachaSingleAdsRemainCount; }
 
         BgmVolume = saveData.bgmVolume;
-        SoundManager.Instance.SetBgmVolume(BgmVolume);
-
         SfxVolume = saveData.sfxVolume;
-        SoundManager.Instance.SetSfxVolume(SfxVolume);
 
         BestScore = saveData.bestScore;
 
