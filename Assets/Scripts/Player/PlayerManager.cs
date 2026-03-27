@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerManager : InGameManager
@@ -9,6 +10,7 @@ public class PlayerManager : InGameManager
     private PlayerMove playerMove;
     private Rigidbody rb;
     private Vector3 lastSuccessPos;
+    private CinemachineVirtualCamera vcam;
     public bool IsMoving => playerMove != null && playerMove.IsMoving;
     public override void Initialize()
     {
@@ -17,6 +19,8 @@ public class PlayerManager : InGameManager
         playerMove = playerObj.GetComponent<PlayerMove>();
         rb = playerObj.GetComponent<Rigidbody>();
         lastSuccessPos = playerObj.transform.position;
+        vcam = GameObject.Find("Virtual Camera")?.GetComponent<CinemachineVirtualCamera>();
+
         playerMove.OnArrival += () =>
         {
             lastSuccessPos = playerMove.transform.position;
@@ -25,23 +29,32 @@ public class PlayerManager : InGameManager
         playerMove.OnFailureArrival += () => GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
 
         // 3. 게임오버 시 물리 작동 액션 등록
-        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
-        {
-            playerMove.StopMoving();
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.velocity = Vector3.zero; // 앞으로 가던 힘 삭제
-            rb.angularVelocity = Vector3.zero;
-            Debug.Log("플레이어 추락 시퀀스 시작");
-        });
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, StartFallSequence);
 
         // 4. 다리 ActionMap — GamePlay 상태에서만 활성화
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GamePlay,    () => StartCoroutine(EnableBridgeActionMapNextFrame()));
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.WaitLoading, () => SetBridgeActionMap(false));
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameReady,   () => SetBridgeActionMap(false));
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameStop,    () => SetBridgeActionMap(false));
-        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver,    () => SetBridgeActionMap(false));
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver,    () => SetBridgeActionMap(resetBridge: false));
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameClear,   () => SetBridgeActionMap(false));
+    }
+
+    private void StartFallSequence()
+    {
+        playerMove.StopMoving();
+
+        // 카메라 추적 해제 (플레이어 회전에 카메라가 딸려가지 않도록)
+        if (vcam != null) vcam.Follow = null;
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.velocity = playerMove.transform.forward * 2.5f + Vector3.up * 1.5f;
+        rb.angularVelocity = new Vector3(
+            UnityEngine.Random.Range(3f, 5f),
+            UnityEngine.Random.Range(-2f, 2f),
+            UnityEngine.Random.Range(-1f, 1f)
+        );
     }
 
     private System.Collections.IEnumerator EnableBridgeActionMapNextFrame()
@@ -52,12 +65,12 @@ public class PlayerManager : InGameManager
         bridge.GetComponent<UnityEngine.InputSystem.PlayerInput>().currentActionMap?.Enable();
     }
 
-    private void SetBridgeActionMap(bool enabled)
+    private void SetBridgeActionMap(bool resetBridge = true)
     {
         var bridge = GameManager.Instance.BridgeManager.Spawner.CurrentBridge;
         if (bridge == null) return;
         var pi = bridge.GetComponent<UnityEngine.InputSystem.PlayerInput>();
-        bridge.GetComponent<CubeRoad>().ResetGrow();
+        if (resetBridge) bridge.GetComponent<CubeRoad>().ResetGrow();
         pi.currentActionMap?.Disable();
     }
 
@@ -75,6 +88,9 @@ public class PlayerManager : InGameManager
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
         rb.useGravity = false;
+
+        // 카메라 재연결
+        if (vcam != null) vcam.Follow = playerMove.transform;
 
         var bridgeManager = GameManager.Instance.BridgeManager;
         bridgeManager.Revive();

@@ -46,5 +46,3 @@ public class GameDataManager : PersistentMonoSingleton<GameDataManager>
     //public void SetFrameRateIndex(int index) { ... }
     //public void SetLanguageSettingType(LanguageSettingType type) { ... }
 }
-
-
