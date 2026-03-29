@@ -42,6 +42,7 @@ public class SettingPanel : UIElement
 
     private void OnCloseClicked()
     {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
         Hide();
         gameUIManager.ShowUIElement(UIElementEnums.PausePanel);
     }

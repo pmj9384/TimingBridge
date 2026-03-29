@@ -25,10 +25,21 @@ public class PausePanel : UIElement
         gameObject.SetActive(false);
     }
 
-    private void OnResumeClicked() => gameManager.SetGameState(GameManager.GameState.GamePlay);
-    private void OnRestartClicked() => gameManager.RestartGame();
+    private void OnResumeClicked()
+    {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
+        gameManager.SetGameState(GameManager.GameState.GamePlay);
+    }
+
+    private void OnRestartClicked()
+    {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
+        gameManager.RestartGame();
+    }
+
     private void OnSettingsClicked()
     {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
         Hide();
         gameUIManager.ShowUIElement(UIElementEnums.SettingPanel);
     }

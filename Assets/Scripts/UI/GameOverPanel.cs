@@ -35,12 +35,21 @@ public class GameOverPanel : UIElement
         gameObject.SetActive(false);
     }
 
-    private void OnRestartClicked() => gameManager.RestartGame();
+    private void OnRestartClicked()
+    {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
+        gameManager.RestartGame();
+    }
 
-    private void OnHomeClicked() => gameManager.GoToTitle();
+    private void OnHomeClicked()
+    {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
+        gameManager.GoToTitle();
+    }
 
     private void OnReviveClicked()
     {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
         AdsManager.Instance.ShowRewardedAd(
             onRewarded: () =>
             {

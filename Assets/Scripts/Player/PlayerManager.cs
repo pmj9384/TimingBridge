@@ -59,7 +59,11 @@ public class PlayerManager : InGameManager
 
     private System.Collections.IEnumerator EnableBridgeActionMapNextFrame()
     {
-        yield return null; // Resume 버튼 터치가 끝날 때까지 대기
+        // 터치/클릭이 완전히 끝날 때까지 대기 (광고 닫기, Resume 버튼 입력 블리드 방지)
+        yield return new WaitUntil(() =>
+            (UnityEngine.InputSystem.Touchscreen.current == null || !UnityEngine.InputSystem.Touchscreen.current.primaryTouch.isInProgress) &&
+            (UnityEngine.InputSystem.Mouse.current == null || !UnityEngine.InputSystem.Mouse.current.leftButton.isPressed)
+        );
         var bridge = GameManager.Instance.BridgeManager.Spawner.CurrentBridge;
         if (bridge == null) yield break;
         bridge.GetComponent<UnityEngine.InputSystem.PlayerInput>().currentActionMap?.Enable();

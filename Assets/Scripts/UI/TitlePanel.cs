@@ -23,6 +23,7 @@ public class TitlePanel : UIElement
 
     private void OnStartClicked()
     {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
         gameManager.SetGameState(GameManager.GameState.GamePlay);
     }
 }

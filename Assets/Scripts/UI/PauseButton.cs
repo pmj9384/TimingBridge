@@ -19,6 +19,7 @@ public class PauseButton : UIElement, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        SoundManager.Instance.PlaySfx(SfxClipId.ButtonTouch);
         gameManager.SetGameState(GameManager.GameState.GameStop);
     }
 }

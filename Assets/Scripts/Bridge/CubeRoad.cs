@@ -9,6 +9,8 @@ public class CubeRoad : MonoBehaviour
     [SerializeField] private float growSpeed = 5.0f;
     private float maxScale = 7.0f;
     private float minScale = 0.1f;
+
+    public void SetGrowSpeed(float speed) => growSpeed = speed;
     private bool isShrinking = false;
     private Coroutine _growRoutine;
     private Coroutine _fallRoutine;

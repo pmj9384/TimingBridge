@@ -14,6 +14,7 @@ public class BridgeManager : InGameManager
     public int Score => score;
     [SerializeField] private BridgeSpawner bridgeSpawner;
     [SerializeField] private GameObject criticalEffect;
+    [SerializeField] private DifficultyConfig difficultyConfig;
     // 나중에 스포너를 다른곳으로 쓸수있게 프로퍼티 열어둠
     public BridgeSpawner Spawner => bridgeSpawner;
     public bool CanBuild { get; set; } = true;
@@ -30,7 +31,7 @@ public class BridgeManager : InGameManager
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
         {
             if (GameManager.Instance.PreviousState == GameManager.GameState.GameStop) return;
-            bridgeSpawner.SpawnNextBridge(bridgeSpawner.GetCurrentPlatformPos());
+            SpawnBridge(bridgeSpawner.GetCurrentPlatformPos());
             bridgeSpawner.ShowCurrentBridge();
         });
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
@@ -59,11 +60,18 @@ public class BridgeManager : InGameManager
         {
             Vector3 realTarget = Spawner.GetCurrentPlatformPos();
             GameManager.Instance.PlayerManager.MovePlayer(realTarget, true);
-            bridgeSpawner.SpawnNextBridge(realTarget);
+            SpawnBridge(realTarget);
         });
 
     }
 
+
+    private void SpawnBridge(Vector3 pos)
+    {
+        float growSpeed     = difficultyConfig != null ? difficultyConfig.GetGrowSpeed(score)      : 5f;
+        float platformScale = difficultyConfig != null ? difficultyConfig.GetPlatformZScale(score) : 1f;
+        bridgeSpawner.SpawnNextBridge(pos, growSpeed, platformScale);
+    }
 
     public void OnBridgeResult(bool isSuccess, Vector3 targetPos, bool isCritical = false)
     {

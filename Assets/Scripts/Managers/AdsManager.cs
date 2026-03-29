@@ -52,14 +52,19 @@ public class AdsManager : PersistentMonoSingleton<AdsManager>
             return;
         }
 
+        bool rewarded = false;
         rewardedAd.Show(reward =>
         {
             Debug.Log("[AdsManager] 리워드 지급 완료");
-            onRewarded?.Invoke();
+            rewarded = true;
         });
 
-        // 광고 닫힌 후 다음 광고 미리 로드
-        rewardedAd.OnAdFullScreenContentClosed += () => LoadRewardedAd();
+        // 광고 완전히 닫힌 후 리워드 콜백 실행 (입력 블리드 방지)
+        rewardedAd.OnAdFullScreenContentClosed += () =>
+        {
+            if (rewarded) onRewarded?.Invoke();
+            LoadRewardedAd();
+        };
         rewardedAd.OnAdFullScreenContentFailed += error =>
         {
             Debug.LogWarning($"[AdsManager] 광고 표시 실패: {error}");
