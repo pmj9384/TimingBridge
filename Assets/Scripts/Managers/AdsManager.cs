@@ -1,10 +1,13 @@
 using System;
-using GoogleMobileAds.Api;
 using UnityCommunity.UnitySingleton;
 using UnityEngine;
+#if UNITY_ANDROID
+using GoogleMobileAds.Api;
+#endif
 
 public class AdsManager : PersistentMonoSingleton<AdsManager>
 {
+#if UNITY_ANDROID
     private const string RewardedAdUnitId = "ca-app-pub-4717936789267161/3672102644";
 
     private RewardedAd rewardedAd;
@@ -13,6 +16,7 @@ public class AdsManager : PersistentMonoSingleton<AdsManager>
     public override void InitializeSingleton()
     {
         base.InitializeSingleton();
+        MobileAds.RaiseAdEventsOnUnityMainThread = true;
         MobileAds.Initialize(status =>
         {
             isInitialized = true;
@@ -53,23 +57,41 @@ public class AdsManager : PersistentMonoSingleton<AdsManager>
         }
 
         bool rewarded = false;
-        rewardedAd.Show(reward =>
+        var ad = rewardedAd;
+
+        void OnClosed()
+        {
+            ad.OnAdFullScreenContentClosed -= OnClosed;
+            ad.OnAdFullScreenContentFailed -= OnFailed;
+            if (rewarded) onRewarded?.Invoke();
+            LoadRewardedAd();
+        }
+
+        void OnFailed(AdError error)
+        {
+            ad.OnAdFullScreenContentClosed -= OnClosed;
+            ad.OnAdFullScreenContentFailed -= OnFailed;
+            Debug.LogWarning($"[AdsManager] 광고 표시 실패: {error}");
+            onFailed?.Invoke();
+            LoadRewardedAd();
+        }
+
+        ad.OnAdFullScreenContentClosed += OnClosed;
+        ad.OnAdFullScreenContentFailed += OnFailed;
+
+        ad.Show(reward =>
         {
             Debug.Log("[AdsManager] 리워드 지급 완료");
             rewarded = true;
         });
-
-        // 광고 완전히 닫힌 후 리워드 콜백 실행 (입력 블리드 방지)
-        rewardedAd.OnAdFullScreenContentClosed += () =>
-        {
-            if (rewarded) onRewarded?.Invoke();
-            LoadRewardedAd();
-        };
-        rewardedAd.OnAdFullScreenContentFailed += error =>
-        {
-            Debug.LogWarning($"[AdsManager] 광고 표시 실패: {error}");
-            onFailed?.Invoke();
-            LoadRewardedAd();
-        };
     }
+#else
+    public bool IsRewardedAdReady => false;
+
+    public void ShowRewardedAd(Action onRewarded, Action onFailed = null)
+    {
+        Debug.Log("[AdsManager] 광고 미지원 플랫폼");
+        onFailed?.Invoke();
+    }
+#endif
 }

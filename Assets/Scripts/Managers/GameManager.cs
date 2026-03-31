@@ -94,6 +94,7 @@ public class GameManager : MonoSingleton<GameManager>
         AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeBgm());
         AddGameStateExitAction(GameState.GameStop, () => SoundManager.Instance.ResumeSfx());
         AddGameStateEnterAction(GameState.GameOver, () => SoundManager.Instance.StopBgm());
+        AddGameStateEnterAction(GameState.GamePlay, () => { if (!SoundManager.Instance.bgmAudioSource.isPlaying) SoundManager.Instance.PlayBgm(BgmClipId.IngameBGM); });
         AddGameStateEnterAction(GameState.GameOver, () => GameDataManager.Instance.PlayerAccountData.TryUpdateBestScore(BridgeManager.Score));
     }
 
