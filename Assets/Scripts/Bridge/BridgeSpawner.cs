@@ -43,7 +43,8 @@ public class BridgeSpawner : MonoBehaviour
         previousPlatform = currentPlatform;
 
         GameObject bridgeObj = bridgePool.Get();
-        bridgeObj.transform.position   = new Vector3(currentPlatformPos.x, 0.25f, currentPlatformPos.z);
+        float platformHalfZ = currentPlatform.transform.localScale.z * 0.5f;
+        bridgeObj.transform.position   = new Vector3(currentPlatformPos.x, 0.25f, currentPlatformPos.z + platformHalfZ);
         bridgeObj.transform.rotation   = Quaternion.identity;
         bridgeObj.transform.localScale = Vector3.one;
         bridgeObj.GetComponentInChildren<MeshRenderer>().enabled = false;

@@ -49,7 +49,7 @@ public class PlayerManager : InGameManager
 
         rb.isKinematic = false;
         rb.useGravity = true;
-        rb.velocity = playerMove.transform.forward * 2.5f + Vector3.up * 1.5f;
+        rb.linearVelocity = playerMove.transform.forward * 2.5f + Vector3.up * 1.5f;
         rb.angularVelocity = new Vector3(
             UnityEngine.Random.Range(3f, 5f),
             UnityEngine.Random.Range(-2f, 2f),
@@ -88,7 +88,7 @@ public class PlayerManager : InGameManager
     public void Revive()
     {
         // 물리 복원 (velocity는 isKinematic 전에 초기화)
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
         rb.useGravity = false;

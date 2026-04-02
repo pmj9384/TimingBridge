@@ -34,6 +34,10 @@ public class BridgeManager : InGameManager
             SpawnBridge(bridgeSpawner.GetCurrentPlatformPos());
             bridgeSpawner.ShowCurrentBridge();
         });
+        GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameStop, () =>
+        {
+            bridgeSpawner.CurrentBridge?.GetComponent<CubeRoad>()?.ResetGrow();
+        });
         GameManager.Instance.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
             bridgeSpawner.CurrentBridge?.GetComponent<CubeRoad>()?.OnGameOver();
